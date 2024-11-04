@@ -1,1 +1,2 @@
 # coupe-de-france-2025
+Bienvenue sur notre espace Teams ! Ce projet a pour objectif de concevoir, développer et programmer un robot capable de participer à la Coupe de France de Robotique. En tant que chef de projet, je vous invite à collaborer, innover et relever des défis ensemble. Chaque membre de l’équipe apportera ses compétences pour créer un robot performant et créatif. Ensemble, visons l’excellence et faisons briller notre équipe lors de cette compétition 
