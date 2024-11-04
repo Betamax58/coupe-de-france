@@ -1,1 +1,1 @@
-# coupe-de-frnace-2025
+# coupe-de-france-2025
