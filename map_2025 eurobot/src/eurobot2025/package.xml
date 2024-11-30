@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>eurobot2025_gazebo</name>
+  <version>0.0.0</version>
+  <description>This package contain a simulated world for eurobot 2025 (Sail The World)</description>
+
+    <maintainer email="kevin.boyer--navarro@groupe-esigelec.org">BOYER--NAVARRO Kévin</maintainer>
+    <maintainer email="julien.mindzie@groupe-esigelec.org">MINDZIE MI MBIDA Julien</maintainer>
+  <license>MIT</license>
+
+  <depend>gazebo</depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+    <gazebo_ros gazebo_media_path="${prefix}/models"/>
+  </export>
+</package>
