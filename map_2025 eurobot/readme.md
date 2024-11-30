@@ -4,7 +4,7 @@ For the simulation,follow these instructions  :
 
 # Running the simulation
 
-![Table 2025](images/cdf2025.png)
+(images/cdf2025.png)
 
 Clone the repository:
 ```bash
@@ -20,4 +20,4 @@ roslaunch eurobot2025_gazebo eurobot.launch
 
 
 
-> **Note &#9432; :** for systems with low RAM (<16Gb), it is recommended to compile using `colcon build --symlink-install --executor sequential` to avoid running out of memory.
+> **Note &#9432; :** for systems with low RAM (<16Gb).
