@@ -4,7 +4,7 @@ For the simulation,follow these instructions  :
 
 # Running the simulation
 
-(images/cdf2025.png)
+![Table 2025](src/eurobot2025/images/cdf2025.png)
 
 Clone the repository:
 ```bash
