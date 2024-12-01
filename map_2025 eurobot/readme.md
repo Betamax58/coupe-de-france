@@ -8,7 +8,7 @@ For the simulation,follow these instructions  :
 
 Clone the repository:
 ```bash
-git clone [https://github.com/Betamax58/coupe-de-france.git]
+git clone https://github.com/Betamax58/coupe-de-france.git
 cd map_2025
 ```
 run commands for the gazebo simulation
