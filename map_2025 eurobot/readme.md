@@ -9,6 +9,7 @@ For the simulation,follow these instructions  :
 Clone the repository:
 ```bash
 git clone -b 2025 --single-branch git@github.com:Betamax58/coupe-de-france.git
+cd coupe-de-france/map_2025\ eurobot
 ```
 run commands for the gazebo simulation
 ```bash
