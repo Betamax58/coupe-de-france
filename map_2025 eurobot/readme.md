@@ -14,7 +14,7 @@ cd map_2025
 run commands for the gazebo simulation
 ```bash
 catkin_make
-source install/setup.bash
+source devel/setup.bash
 roslaunch eurobot2025_gazebo eurobot.launch
 ```
 
