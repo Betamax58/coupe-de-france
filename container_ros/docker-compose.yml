@@ -1,0 +1,7 @@
+version: '3'
+services:
+  ros:
+    build: ./ros
+    container_name: ros
+    ports:
+      - "11311:11311"
