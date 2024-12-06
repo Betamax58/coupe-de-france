@@ -262,12 +262,12 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-37" value="out_log_video" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="590" y="970" width="160" height="80" as="geometry" />
+          <mxGeometry x="450" y="970" width="340" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="cg-evPHRQqjPG4EOtniu-38" value="screen&lt;br&gt;std_msgs/msg/String.msg&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="cg-evPHRQqjPG4EOtniu-37">
-          <mxGeometry y="26" width="160" height="54" as="geometry" />
+        <mxCell id="cg-evPHRQqjPG4EOtniu-38" value="screen&lt;br&gt;std_msgs/msg/String.msg&lt;div&gt;common_msgs/sensor_msgs/msg/CompressedImage.msg&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="cg-evPHRQqjPG4EOtniu-37">
+          <mxGeometry y="26" width="340" height="54" as="geometry" />
         </mxCell>
-        <mxCell id="cg-evPHRQqjPG4EOtniu-39" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BjPIitblOoQbs2joknER-17" target="cg-evPHRQqjPG4EOtniu-37">
+        <mxCell id="cg-evPHRQqjPG4EOtniu-39" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BjPIitblOoQbs2joknER-17" target="cg-evPHRQqjPG4EOtniu-37">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="710" y="72" as="sourcePoint" />
             <mxPoint x="640" y="650" as="targetPoint" />
@@ -276,13 +276,13 @@
               <mxPoint x="770" y="40" />
               <mxPoint x="770" y="220" />
               <mxPoint x="770" y="950" />
-              <mxPoint x="630" y="950" />
+              <mxPoint x="650" y="950" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-40" value="common_msgs/sensor_msgs/msg/CompressedImage.msg" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="cg-evPHRQqjPG4EOtniu-39">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-120" y="420" as="offset" />
+            <mxPoint x="-120" y="428" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-44" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BjPIitblOoQbs2joknER-8" target="BjPIitblOoQbs2joknER-17">
