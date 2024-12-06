@@ -97,7 +97,7 @@
             <mxPoint x="430" y="307.5" as="sourcePoint" />
             <mxPoint x="120" y="40" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="160" y="680" />
+              <mxPoint x="160" y="685" />
               <mxPoint x="160" y="40" />
               <mxPoint x="55" y="40" />
             </Array>
@@ -105,7 +105,7 @@
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-5" value="common_msgs/sensor_msgs/msg/LaserScan.msg" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="cg-evPHRQqjPG4EOtniu-4">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="130" y="198" as="offset" />
+            <mxPoint x="130" y="180" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-6" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="BjPIitblOoQbs2joknER-9" target="BjPIitblOoQbs2joknER-17">
@@ -234,7 +234,7 @@
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-26" value="&lt;span style=&quot;font-size: 12px; text-align: left; text-wrap-mode: wrap; background-color: rgb(251, 251, 251);&quot;&gt;std_msgs/msg/Float32MultiArray&lt;/span&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="cg-evPHRQqjPG4EOtniu-25">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="70" y="-87" as="offset" />
+            <mxPoint x="50" y="-142" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-27" value="log_txt" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
