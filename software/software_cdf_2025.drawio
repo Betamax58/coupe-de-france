@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="25.0.1">
   <diagram name="Page-1" id="0Wn39K2W7D7hkB4LfAyV">
-    <mxGraphModel dx="1155" dy="3909" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2918" dy="4822" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -567,7 +567,7 @@
             <mxPoint x="6860" y="1730" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cg-evPHRQqjPG4EOtniu-400" value="Subscriber_Motion&lt;br&gt;&lt;br&gt;Driver_Control" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="cg-evPHRQqjPG4EOtniu-400" value="Subscriber_Motion&lt;br&gt;&lt;br&gt;Driver_Motion_Control" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="7510" y="1555" width="140" height="140" as="geometry" />
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-401" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.875;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-394" target="cg-evPHRQqjPG4EOtniu-400">
@@ -586,6 +586,60 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="7280" y="1680" as="sourcePoint" />
             <mxPoint x="7330" y="1630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-404" value="Motion_Control&lt;br&gt;&lt;br&gt;Software_Component&lt;br&gt;&lt;br&gt;Driver_Motion_Control" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
+          <mxGeometry x="7790" y="1570" width="175" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-405" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-400" target="cg-evPHRQqjPG4EOtniu-404">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="7550" y="1750" as="sourcePoint" />
+            <mxPoint x="7600" y="1700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-406" value="INTERFACE&lt;br&gt;4 MECANUM WHEELS CONTROLLER" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="8105" y="1575" width="165" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-407" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-404" target="cg-evPHRQqjPG4EOtniu-406">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="8070" y="1700" as="sourcePoint" />
+            <mxPoint x="8120" y="1650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-408" value="basics_robot_parameters.cfg" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=47.5;" vertex="1" parent="1">
+          <mxGeometry x="4765" y="810" width="185" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-409" value="PARAMETER SERVER&lt;br&gt;SORTING OF&amp;nbsp; REVELANT ROBOT PARAMETERS DATA /TF_ROBOT_FRAME / TF_SENSOR_FRAME" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
+          <mxGeometry x="4770" y="1020" width="175" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-410" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" source="cg-evPHRQqjPG4EOtniu-408" target="cg-evPHRQqjPG4EOtniu-409" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="4755" y="1040" as="sourcePoint" />
+            <mxPoint x="4805" y="990" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-411" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-409" target="cg-evPHRQqjPG4EOtniu-317">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="5020" y="1180" as="sourcePoint" />
+            <mxPoint x="5070" y="1130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-412" value="Actuator_Control&lt;br&gt;&lt;br&gt;Software_Component&lt;br&gt;&lt;br&gt;Direct_Monitoring" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
+          <mxGeometry x="6155" y="2320" width="175" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-413" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-378" target="cg-evPHRQqjPG4EOtniu-412">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="6340" y="2120" as="sourcePoint" />
+            <mxPoint x="6390" y="2070" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-414" value="INTERFACE&lt;br&gt;GRIPPER CONTROLLER" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="6560" y="2325" width="165" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cg-evPHRQqjPG4EOtniu-415" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-412" target="cg-evPHRQqjPG4EOtniu-414">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="6920" y="2530" as="sourcePoint" />
+            <mxPoint x="6970" y="2480" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
