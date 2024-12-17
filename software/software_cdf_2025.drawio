@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="25.0.1">
   <diagram name="Page-1" id="0Wn39K2W7D7hkB4LfAyV">
-    <mxGraphModel dx="1155" dy="3909" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="-3547" dy="1473" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -246,7 +246,7 @@
         <mxCell id="cg-evPHRQqjPG4EOtniu-323" value="Global_Planner&lt;br&gt;&lt;br&gt;Software_Component&lt;br&gt;&lt;br&gt;move_base" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
           <mxGeometry x="6155" y="740" width="175" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="cg-evPHRQqjPG4EOtniu-324" value="Local_Planner&lt;br&gt;&lt;br&gt;Software_Component&lt;br&gt;&lt;br&gt;move_base" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
+        <mxCell id="cg-evPHRQqjPG4EOtniu-324" value="Teb_Local_Planner&lt;br&gt;&lt;br&gt;Software_Component&lt;br&gt;&lt;br&gt;move_base" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
           <mxGeometry x="6662.5" y="740" width="175" height="110" as="geometry" />
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-325" value="Global_Costmap&lt;br&gt;&lt;br&gt;Software_Component&lt;br&gt;&lt;br&gt;move_base" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.1;" vertex="1" parent="1">
@@ -508,7 +508,7 @@
           <mxGeometry x="5620" y="1945" width="140" height="140" as="geometry" />
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-387" value="Publisher_Velocity" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="6680" y="1200" width="140" height="140" as="geometry" />
+          <mxGeometry x="7350" y="950" width="140" height="140" as="geometry" />
         </mxCell>
         <mxCell id="cg-evPHRQqjPG4EOtniu-388" value="Publisher_Motion" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="6490" y="1555" width="140" height="140" as="geometry" />
@@ -534,7 +534,7 @@
             <mxPoint x="6370" y="1460" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cg-evPHRQqjPG4EOtniu-393" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-326" target="cg-evPHRQqjPG4EOtniu-387">
+        <mxCell id="cg-evPHRQqjPG4EOtniu-393" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-324" target="cg-evPHRQqjPG4EOtniu-387">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="6620" y="1170" as="sourcePoint" />
             <mxPoint x="6670" y="1120" as="targetPoint" />
@@ -546,7 +546,7 @@
         <mxCell id="cg-evPHRQqjPG4EOtniu-395" value="/move_base/cmd_vel" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="6955" y="1215" width="175" height="125" as="geometry" />
         </mxCell>
-        <mxCell id="cg-evPHRQqjPG4EOtniu-396" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.07;entryY=0.4;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-387" target="cg-evPHRQqjPG4EOtniu-395">
+        <mxCell id="cg-evPHRQqjPG4EOtniu-396" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.875;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="cg-evPHRQqjPG4EOtniu-387" target="cg-evPHRQqjPG4EOtniu-395">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="6500" y="1690" as="sourcePoint" />
             <mxPoint x="6550" y="1640" as="targetPoint" />
