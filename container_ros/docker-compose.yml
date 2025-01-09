@@ -1,7 +1,15 @@
-version: '3'
+# version: '3'
 services:
-  ros:
-    build: ./ros
+  service_ros:
     container_name: ros
+    restart: always
+    command: ["roscore"]
+    # environment:
+    #   ROOT_PASSWORD : "123_Root"
+    volumes:
+      - ./projects_ros:/projects_ros
+    build:
+      context: ./ros
+      dockerfile: Dockerfile
     ports:
-      - "11311:11311"
+      - "11311:11311" 
