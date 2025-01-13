@@ -57,7 +57,7 @@ void publisherTF(int argc, char** argv)
                   frameOperatorCameraFrameA, frameOperatorCameraFrameB, frameOperatorCameraFrameC
                   frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC
                   frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF
-                  ; 
+                  frameOperatorTOF_frameG,frameOperatorTOF_frameH; 
     
     
     frameOperatorOdom.setPositionPoint(tf::vector3(0,0,0));
