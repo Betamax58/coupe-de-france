@@ -1,7 +1,7 @@
 #include "../include/process.hpp"
 
 
-void odometryMessage(geometry_msgs::Pose poseMsg, geometry_msgs::Twist twistMsg, nav_msgs::Odometry *odom_msg)
+void odometryMessage(std_msgs::String childFrameName, std_msgs::String parentFrameName, geometry_msgs::Pose poseMsg, geometry_msgs::Twist twistMsg, nav_msgs::Odometry *odom_msg)
 {
     if (odom_msg == nullptr) {
         ROS_ERROR("odom_msg pointer is null!");
@@ -12,8 +12,8 @@ void odometryMessage(geometry_msgs::Pose poseMsg, geometry_msgs::Twist twistMsg,
 
         // Remplissage de l'en-tête
         odom_msg->header.stamp = ros::Time::now();
-        odom_msg->header.frame_id = "odom";  // Cadre de référence
-        odom_msg->child_frame_id = "base_link";  // Cadre enfant
+        odom_msg->header.frame_id = parentFrameName;  // Cadre de référence
+        odom_msg->child_frame_id = childFrameName;  // Cadre enfant
 
         // Remplissage de la pose (position et orientation)
         odom_msg->pose.pose.position.x = poseMsg.position.x;

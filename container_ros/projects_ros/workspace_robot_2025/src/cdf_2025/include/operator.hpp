@@ -93,6 +93,7 @@ class TransformOperator
         void setParentFrame(FrameOperator parentFrame);
         void setOdometryTransform(nav_msgs::Odometry odometryTransform);
         void broadcastTransform(void);
+        void updateChildFrame(void);
 
 };
 

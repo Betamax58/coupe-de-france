@@ -123,8 +123,7 @@ void TransformOperator::setOdometryTransform(nav_msgs::Odometry odometryTransfor
     this->odometryTransform = odometryTransform;
 }
 
-
-void TransformOperator::broadcastTransform(void)
+tf::Transform TransformOperator::updateChildFrame(void)
 {
     tf::Transform transform;
 
@@ -137,8 +136,24 @@ void TransformOperator::broadcastTransform(void)
     
     // rotation autour de X, Y, Z avec le quaternion entre les 2 repères.
     transform.setRotation(this->odometryTransform.pose.pose.orientation);
+    
+    this->odometryTransform.pose.pose.position.x = 0;
+    this->odometryTransform.pose.pose.position.x = 0;
+    this->odometryTransform.pose.pose.position.x = 0;
+    this->odometryTransform.pose.pose.orientation = tf::Quaternion(0,0,0,1);
+
+    return transform;
+}
+
+
+void TransformOperator::broadcastTransform(void)
+{
+    
 
     // publication d'objet de type tf::Transform concernant un child frame et parent frame.
-    this->broadcaster.sendTransform(tf::StampedTransform(transform, ros::Time::now(), this->parentFrame, this->childFrame));
+    this->broadcaster.sendTransform(tf::StampedTransform(TransformOperator::updateChildFrame(), 
+                                                        ros::Time::now(), 
+                                                        this->parentFrame, 
+                                                        this->childFrame));
 }
 
