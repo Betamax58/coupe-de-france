@@ -1,0 +1,323 @@
+#include "../include/node.hpp"*
+#include "../include/process.hpp"
+
+void publisherOdometry(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher pub = n.advertise<nav_msgs::Odometry>("/odom", 100);
+    ros::Rate loop_rate(10);
+
+  /**
+   * A count of how many messages we have sent. This is used to create
+   * a unique string for each message.
+   */
+    int count = 0;
+
+  // Création du timer
+  TimerProcess timerProcess(&n, "odometry") // Appelé toutes les 0.1 seconde
+
+  while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "p_n_Odometry_ID_" << count;
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    pub.publish(msg);
+
+    ros::spinOnce();
+
+    loop_rate.sleep();
+    ++count;
+  }
+}
+
+void publisherTF(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void publisherCameraData(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void publisherTOFData(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void publisherLidarData(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void publisherVelocity(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void publisherMotion(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void publisherMonitoring(void)
+{
+    ros::init(argc, argv, "publisherOdometry");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Rate loop_rate(10);
+
+    while (ros::ok())
+  {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+     */
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world "
+    msg.data = ss.str();
+
+    ROS_INFO("%s", msg.data.c_str());
+
+    /**
+     * The publish() function is how you send messages. The parameter
+     * is the message object. The type of this object must agree with the type
+     * given as a template parameter to the advertise<>() call, as was done
+     * in the constructor above.
+     */
+    chatter_pub.publish(msg);
+
+    // ros::spinOnce();
+
+    loop_rate.sleep();
+    
+  }
+}
+
+void subscriberOdometry(void)
+{
+    ros::init(argc, argv, "subcriberOdometry");
+    ros::NodeHandle n;
+    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::spin();
+}
+
+void subscriberTF(void)
+{
+    ros::init(argc, argv, "subcriberOdometry");
+    ros::NodeHandle n;
+    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::spin();
+}
+
+void subscriberMotionControl(void)
+{
+    ros::init(argc, argv, "subcriberOdometry");
+    ros::NodeHandle n;
+    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::spin();
+}
+
+void subscriberSensor(void)
+{
+    ros::init(argc, argv, "subcriberOdometry");
+    ros::NodeHandle n;
+    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::spin();
+}
