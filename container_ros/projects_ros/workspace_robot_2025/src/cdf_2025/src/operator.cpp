@@ -71,6 +71,13 @@ void FrameOperator::setFrameTransform(tf::Transform transform)
 }
 
 
+void FrameOperator::getFrameTransform(void)
+{
+    return this->frameTransform;
+}
+
+
+
 nav_msgs::Odometry MotionOperator::getWheelsOdometry(void)
 {
 
@@ -143,9 +150,10 @@ tf::Transform TransformOperator::updateChildFrame(void)
     // rotation autour de X, Y, Z avec le quaternion entre les 2 repères.
     transform.setRotation(this->odometryTransform.pose.pose.orientation);
     
+    // remise à zéro de l'odométrie
     this->odometryTransform.pose.pose.position.x = 0;
-    this->odometryTransform.pose.pose.position.x = 0;
-    this->odometryTransform.pose.pose.position.x = 0;
+    this->odometryTransform.pose.pose.position.y = 0;
+    this->odometryTransform.pose.pose.position.z = 0;
     this->odometryTransform.pose.pose.orientation = tf::Quaternion(0,0,0,1);
 
     return transform;
@@ -157,9 +165,9 @@ void TransformOperator::broadcastTransform(void)
     
 
     // publication d'objet de type tf::Transform concernant un child frame et parent frame.
-    this->broadcaster.sendTransform(tf::StampedTransform(TransformOperator::updateChildFrame(), 
+    this->childFrame.setFrameTransform(TransformOperator::updateChildFrame()); 
+    this->broadcaster.sendTransform(tf::StampedTransform(this->childFrame.getFrameTransform(), 
                                                         ros::Time::now(), 
-                                                        this->parentFrame, 
-                                                        this->childFrame));
+                                                        this->parentFrame.getFrameName(), 
+                                                        this->childFrame.getFrameName()));
 }
-

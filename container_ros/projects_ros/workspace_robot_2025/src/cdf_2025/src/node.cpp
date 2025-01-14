@@ -53,61 +53,9 @@ void publisherTF(int argc, char** argv)
     ros::Publisher pub = n.advertise<std_msgs::String>("chatter", 1000);
     ros::Rate loop_rate(10);
 
-    Odometrynav_msgs::Odometry frameOdometry
+    nav_msgs::Odometry frameOdometry
 
-    TransformOperator transformOperator;
-    FrameOperator frameOperatorOdom, frameOperatorFootprint, frameOperatorBase_link,
-                  frameOperatorCameraFrameA, frameOperatorCameraFrameB, frameOperatorCameraFrameC,
-                  frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC,
-                  frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF,
-                  frameOperatorTOF_frameG,frameOperatorTOF_frameH; 
     
-    
-    frameOperatorOdom.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorOdom.setFrameName("odom");
-    frameOperatorOdom.setParentFrameName("map");
-    frameOperatorFootprint.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorFootprint.setFrameName("footprint");
-    frameOperatorFootprint.setParentFrameName("odom");
-    frameOperatorBase_link.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorBase_link.setFrameName("base_link");
-    frameOperatorBase_link.setParentFrameName("footprint");
-    frameOperatorBase_laser.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorBase_laser.setFrameName("base_laser");
-    frameOperatorBase_laser.setParentFrameName("base_link");
-    frameOperatorCameraFrameA.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorCameraFrameA.setFrameName("cameraFrameA");
-    frameOperatorCameraFrameA.setParentFrameName("base_link");
-    frameOperatorCameraFrameB.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorCameraFrameB.setFrameName("cameraFrameB");
-    frameOperatorCameraFrameB.setParentFrameName("base_link");
-    frameOperatorCameraFrameC.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorCameraFrameC.setFrameName("cameraFrameC");
-    frameOperatorCameraFrameC.setParentFrameName("base_link");
-    frameOperatorTOF_frameA.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameA.setFrameName("tof_frameA");
-    frameOperatorTOF_frameA.setParentFrameName("base_link");
-    frameOperatorTOF_frameB.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameB.setFrameName("tof_frameB");
-    frameOperatorTOF_frameB.setParentFrameName("base_link");
-    frameOperatorTOF_frameC.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameC.setFrameName("tof_frameC");
-    frameOperatorTOF_frameC.setParentFrameName("base_link");
-    frameOperatorTOF_frameD.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameD.setFrameName("tof_frameD");
-    frameOperatorTOF_frameD.setParentFrameName("base_link");
-    frameOperatorTOF_frameE.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameE.setFrameName("tof_frameE");
-    frameOperatorTOF_frameE.setParentFrameName("base_link");
-    frameOperatorTOF_frameF.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameF.setFrameName("tof_frameF");
-    frameOperatorTOF_frameF.setParentFrameName("base_link");
-    frameOperatorTOF_frameG.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameG.setFrameName("tof_frameG");
-    frameOperatorTOF_frameG.setParentFrameName("base_link");
-    frameOperatorTOF_frameH.setPositionPoint(tf::vector3(0,0,0));
-    frameOperatorTOF_frameH.setFrameName("tof_frameH");
-    frameOperatorTOF_frameH.setParentFrameName("base_link");
 
     while (ros::ok())
   {
@@ -120,34 +68,7 @@ void publisherTF(int argc, char** argv)
     // msg.data = ss.str();
     // ROS_INFO("%s", msg.data.c_str());
     
-    transformOperator.setChildFrame(frameOperatorFootprint);
-    transformOperator.setParentFrame(frameOperatorOdom);
     
-    transformOperator.setOdometryTransform()
-    
-    transformOperator.setChildFrame(frameOperatorBase_link);
-    transformOperator.setParentFrame(frameOperatorFootprint);
-    
-
-    transformOperator.setChildFrame(frameOperatorCameraFrameA);
-    transformOperator.setParentFrame(frameOperatorBase_link);
-
-    transformOperator.setChildFrame(frameOperatorBase_link);
-    transformOperator.setParentFrame(frameOperatorCameraFrameA);
-    
-    transformOperator.setChildFrame(frameOperatorBase_link);
-    transformOperator.setParentFrame(frameOperatorCameraFrameB);
-
-
-    transformOperator.setChildFrame(frameOperatorBase_link);
-    transformOperator.setParentFrame(frameOperatorCameraFrameC);
-
-    transformOperator.setChildFrame(frameOperatorBase_link);
-    transformOperator.setParentFrame(frameOperatorTOF_frameA);
-
-
-    transformOperator.setChildFrame(frameOperatorBase_link);
-    transformOperator.setParentFrame(frameOperatorTOF_frameB);
 
 
     /**
