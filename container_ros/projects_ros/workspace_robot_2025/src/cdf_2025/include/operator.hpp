@@ -32,6 +32,7 @@ class FrameOperator
         geometry_msg::vector3 getPositionPointFromParentFrame(void);
         std_msgs::String getParentFrameName(void);
         std_msgs::String getFrameName(void);
+        void setFrameTransform(tf::Transform transform);
 
 };
 

@@ -1,9 +1,9 @@
+#ifndef NODE_H
+#define NODE_H
+
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include <sstream>
-
-#ifndef NODE_H
-#define NODE_H
 
 void publisherOdometry(int argc, char** argv);
 void publisherTF(int argc, char** argv);

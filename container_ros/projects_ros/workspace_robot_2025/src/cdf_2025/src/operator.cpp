@@ -65,6 +65,12 @@ std_msgs::String FrameOperator::getFrameName(void)
 }
 
 
+void FrameOperator::setFrameTransform(tf::Transform transform)
+{
+    this->frameTransform = transform;
+}
+
+
 nav_msgs::Odometry MotionOperator::getWheelsOdometry(void)
 {
 

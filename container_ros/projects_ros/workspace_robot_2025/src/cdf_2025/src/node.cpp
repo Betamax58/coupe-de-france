@@ -1,5 +1,6 @@
 #include "../include/node.hpp"
 #include "../include/process.hpp"
+#include "../include/operator.hpp"
 
 void publisherOdometry(int argc, char** argv)
 {
@@ -52,11 +53,13 @@ void publisherTF(int argc, char** argv)
     ros::Publisher pub = n.advertise<std_msgs::String>("chatter", 1000);
     ros::Rate loop_rate(10);
 
+    Odometrynav_msgs::Odometry frameOdometry
+
     TransformOperator transformOperator;
     FrameOperator frameOperatorOdom, frameOperatorFootprint, frameOperatorBase_link,
-                  frameOperatorCameraFrameA, frameOperatorCameraFrameB, frameOperatorCameraFrameC
-                  frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC
-                  frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF
+                  frameOperatorCameraFrameA, frameOperatorCameraFrameB, frameOperatorCameraFrameC,
+                  frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC,
+                  frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF,
                   frameOperatorTOF_frameG,frameOperatorTOF_frameH; 
     
     
@@ -111,15 +114,41 @@ void publisherTF(int argc, char** argv)
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    std_msgs::String msg;
-
+    // std_msgs::String msg;
+    // std::stringstream ss;
+    // ss << "hello world "
+    // msg.data = ss.str();
+    // ROS_INFO("%s", msg.data.c_str());
+    
+    transformOperator.setChildFrame(frameOperatorFootprint);
+    transformOperator.setParentFrame(frameOperatorOdom);
+    
+    transformOperator.setOdometryTransform()
+    
+    transformOperator.setChildFrame(frameOperatorBase_link);
+    transformOperator.setParentFrame(frameOperatorFootprint);
     
 
-    std::stringstream ss;
-    ss << "hello world "
-    msg.data = ss.str();
+    transformOperator.setChildFrame(frameOperatorCameraFrameA);
+    transformOperator.setParentFrame(frameOperatorBase_link);
 
-    ROS_INFO("%s", msg.data.c_str());
+    transformOperator.setChildFrame(frameOperatorBase_link);
+    transformOperator.setParentFrame(frameOperatorCameraFrameA);
+    
+    transformOperator.setChildFrame(frameOperatorBase_link);
+    transformOperator.setParentFrame(frameOperatorCameraFrameB);
+
+
+    transformOperator.setChildFrame(frameOperatorBase_link);
+    transformOperator.setParentFrame(frameOperatorCameraFrameC);
+
+    transformOperator.setChildFrame(frameOperatorBase_link);
+    transformOperator.setParentFrame(frameOperatorTOF_frameA);
+
+
+    transformOperator.setChildFrame(frameOperatorBase_link);
+    transformOperator.setParentFrame(frameOperatorTOF_frameB);
+
 
     /**
      * The publish() function is how you send messages. The parameter
