@@ -1,11 +1,25 @@
 #ifndef TF_PROCESS_H
 #define TF_PROCESS_H
 
-#include "../include/operator.hpp"
+// #include "../include/operator.hpp"
+#include "operator.hpp"
+
+#include <tf/transform_broadcaster.h>
+
+#include <geometry_msgs/Quaternion.h>
+#include <geometry_msgs/Point.h>
+// #include <geometry_msgs/Vector3.h>
+
+#include <nav_msgs/Odometry.h>
+
+
+
 
 class tf_process
 {
     private:
+        const double PI = 3.14159265358979323846;
+        
         nav_msgs::Odometry frameOdometry;
 
         TransformOperator transformOperator;
@@ -14,11 +28,12 @@ class tf_process
                   frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC,
                   frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF,
                   frameOperatorTOF_frameG,frameOperatorTOF_frameH, frameOperatorBase_laser,
-                  frameOperatorMap; 
+                  frameOperatorAruco_base_A, frameOperatorAruco_base_B, frameOperatorAruco_base_C,
+                  frameOperatorAruco_base_D, frameOperatorMap; 
     
     public:
         void init(void);
-        void initializeFrame(void);
+        void initializeFrame(tf::vector3 positionXYZ, tf::vector3 orientationRPY);
         nav_msgs::Odometry createOdometry(tf::vector3 position, tf::vector3 orientationRPY);
         
         

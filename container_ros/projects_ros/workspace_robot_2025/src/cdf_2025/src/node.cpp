@@ -1,6 +1,9 @@
-#include "../include/node.hpp"
-#include "../include/process.hpp"
-#include "../include/operator.hpp"
+// #include "../include/node.hpp"
+// #include "../include/process.hpp"
+// #include "../include/operator.hpp"
+#include "node.hpp"
+#include "process.hpp"
+#include "operator.hpp"
 
 void publisherOdometry(int argc, char** argv)
 {

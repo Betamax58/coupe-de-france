@@ -1,4 +1,5 @@
-#include "../include/operator.hpp"
+// #include "../include/operator.hpp"
+#include "operator.hpp"
 
 
 void FrameOperator::setFrameName(std_msgs::String name)
@@ -13,7 +14,7 @@ void FrameOperator::setParentFrameName(std_msgs::String name)
 }
 
 
-void FrameOperator::setPositionPoint(geometry_msg::vector3 vector)
+void FrameOperator::setPositionPoint(tf::vector3 vector)
 {
     this->x_position_point = vector.x;
     this->y_position_point = vector.y;
@@ -21,7 +22,7 @@ void FrameOperator::setPositionPoint(geometry_msg::vector3 vector)
 }
 
 
-geometry_msg::vector3 FrameOperator::getPositionPointFromParentFrame(void)
+tf::vector3 FrameOperator::getPositionPointFromParentFrame(void)
 {
     geometry_msgs::PointStamped point_child_frame;
     point_child_frame.header.frame_id = this->parentFrameName;

@@ -1,7 +1,7 @@
-#include "../include/process.hpp"
+// #include "../include/process.hpp"
+#include "process.hpp"
 
-
-void odometryMessage(std_msgs::String childFrameName, std_msgs::String parentFrameName, geometry_msgs::Pose poseMsg, geometry_msgs::Twist twistMsg, nav_msgs::Odometry *odom_msg)
+void odometryMessage(std_msgs::String childFrameName, std_msgs::String parentFrameName, geometry_msgs::Pose poseMsg, geometry_msgs::Twist twistMsg, nav_msgs::Odometry &odom_msg)
 {
     if (odom_msg == nullptr) {
         ROS_ERROR("odom_msg pointer is null!");

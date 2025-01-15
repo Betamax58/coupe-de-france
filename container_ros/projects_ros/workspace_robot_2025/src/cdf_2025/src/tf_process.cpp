@@ -1,11 +1,23 @@
-#include "../include/tf_process.hpp"
-
+// #include "../include/tf_process.hpp"
+#include "tf_process.hpp"
 
 void tf_process::init(void)
         {
             frameOperatorMap.setPositionPoint(tf::vector3(0,0,0));
             frameOperatorMap.setFrameName("map");
-            frameOperatorMap.setParentFrameName("map");
+            frameOperatorMap.setParentFrameName("world");
+            frameOperatorAruco_base_A.setPositionPoint(tf::vector3(0,0,0));
+            frameOperatorAruco_base_A.setFrameName("aruco_A_base");
+            frameOperatorAruco_base_A.setParentFrameName("map");
+            frameOperatorAruco_base_B.setPositionPoint(tf::vector3(0,0,0));
+            frameOperatorAruco_base_B.setFrameName("aruco_B_base");
+            frameOperatorAruco_base_B.setParentFrameName("map");
+            frameOperatorAruco_base_C.setPositionPoint(tf::vector3(0,0,0));
+            frameOperatorAruco_base_C.setFrameName("aruco_C_base");
+            frameOperatorAruco_base_C.setParentFrameName("map");
+            frameOperatorAruco_base_D.setPositionPoint(tf::vector3(0,0,0));
+            frameOperatorAruco_base_D.setFrameName("aruco_D_base");
+            frameOperatorAruco_base_D.setParentFrameName("map");
             frameOperatorOdom.setPositionPoint(tf::vector3(0,0,0));
             frameOperatorOdom.setFrameName("odom");
             frameOperatorOdom.setParentFrameName("map");
@@ -53,8 +65,39 @@ void tf_process::init(void)
             frameOperatorTOF_frameH.setParentFrameName("base_link");
         }
 
-void tf_process::initializeFrame()
+void tf_process::initializeFrame(tf::vector3 positionXYZ, tf::vector3 orientationRPY)
 {
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_A);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(1, 1, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_B);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(1, 5, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_C);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = (tf::vector3(5, 1, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_D);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(5, 5, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
     transformOperator.setChildFrame(this->frameOperatorFootprint);
     transformOperator.setParentFrame(this->frameOperatorOdom);
     this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
@@ -64,48 +107,48 @@ void tf_process::initializeFrame()
     
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorFootprint);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    this->frameOdometry = createOdometry(tf::vector3(0.2, 0.3, 0.3), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(this->frameOdometry);
     transformOperator.updateChildFrame();
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorCameraFrameA);
     transformOperator.setParentFrame(this->frameOperatorBase_link);
+    this->frameOdometry = createOdometry(tf::vector3(0, 0.3, 0.2), tf::vector3(0, (10/180)*(this->PI), 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+    // transformOperator.setChildFrame(this->frameOperatorBase_link);
+    // transformOperator.setParentFrame(this->frameOperatorCameraFrameA);
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // transformOperator.setOdometryTransform(this->frameOdometry);
+    // transformOperator.updateChildFrame();
+    // transformOperator.broadcastTransform();
+
+    transformOperator.setParentFrame(this->frameOperatorBase_link);
+    transformOperator.setChildFrame(this->frameOperatorCameraFrameB);
     this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(this->frameOdometry);
     transformOperator.updateChildFrame();
     transformOperator.broadcastTransform();
 
-    transformOperator.setChildFrame(this->frameOperatorBase_link);
-    transformOperator.setParentFrame(this->frameOperatorCameraFrameA);
+    transformOperator.setParentFrame(this->frameOperatorBase_link);
+    transformOperator.setChildFrame(this->frameOperatorCameraFrameC);
     this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(this->frameOdometry);
     transformOperator.updateChildFrame();
     transformOperator.broadcastTransform();
 
-    transformOperator.setChildFrame(this->frameOperatorBase_link);
-    transformOperator.setParentFrame(this->frameOperatorCameraFrameB);
+    transformOperator.setParentFrame(this->frameOperatorBase_link);
+    transformOperator.setChildFrame(this->frameOperatorTOF_frameA);
     this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(this->frameOdometry);
     transformOperator.updateChildFrame();
     transformOperator.broadcastTransform();
 
-    transformOperator.setChildFrame(this->frameOperatorBase_link);
-    transformOperator.setParentFrame(this->frameOperatorCameraFrameC);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
-    transformOperator.setOdometryTransform(this->frameOdometry);
-    transformOperator.updateChildFrame();
-    transformOperator.broadcastTransform();
-
-    transformOperator.setChildFrame(this->frameOperatorBase_link);
-    transformOperator.setParentFrame(this->frameOperatorTOF_frameA);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
-    transformOperator.setOdometryTransform(this->frameOdometry);
-    transformOperator.updateChildFrame();
-    transformOperator.broadcastTransform();
-
-    transformOperator.setChildFrame(this->frameOperatorBase_link);
-    transformOperator.setParentFrame(this->frameOperatorTOF_frameB);
+    transformOperator.setParentFrame(this->frameOperatorBase_link);
+    transformOperator.setChildFrame(this->frameOperatorTOF_frameB);
     this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(this->frameOdometry);
     transformOperator.updateChildFrame();
@@ -116,51 +159,83 @@ void tf_process::initializeFrame()
 
 void tf_process::transformFrame(nav_msgs::Odometry frameOdometry)
 {
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_A);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(1, 1, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_B);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(1, 5, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_C);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(5, 1, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+
+
+    transformOperator.setChildFrame(this->frameOperatorAruco_base_D);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(tf::vector3(5, 5, 0), tf::vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.updateChildFrame();
+    transformOperator.broadcastTransform();
+    
+    
     transformOperator.setChildFrame(this->frameOperatorFootprint);
     transformOperator.setParentFrame(this->frameOperatorOdom);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
     
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorFootprint);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorCameraFrameA);
     transformOperator.setParentFrame(this->frameOperatorBase_link);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorCameraFrameA);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorCameraFrameB);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorCameraFrameC);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorTOF_frameA);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 
     transformOperator.setChildFrame(this->frameOperatorBase_link);
     transformOperator.setParentFrame(this->frameOperatorTOF_frameB);
-    this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
+    // this->frameOdometry = createOdometry(tf::vector3(0, 0, 0), tf::vector3(0, 0, 0));
     transformOperator.setOdometryTransform(frameOdometry);
     transformOperator.broadcastTransform();
 

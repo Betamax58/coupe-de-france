@@ -1,6 +1,21 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
+#include <nav_msgs/Odometry.h>
+
+#include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
+#include <tf/transform_datatypes.h>
+#include <tf/exceptions.h>
+
+#include <geometry_msgs/Quaternion.h>
+#include <geometry_msgs/PointStamped.h>
+#include <geometry_msgs/Vector3.h>
+
+#include <std_msgs/String.h>
+
+#include <ros/time.h>
+
 /**
  * @class FrameOperator
  * @brief classe qui gère la manipulation des informations appartenant à un repère.
@@ -25,11 +40,11 @@ class FrameOperator
         tf::TransformListener listener;
 
     public:
-        void setPositionPoint(geometry_msg::Vector3 vector);
+        void setPositionPoint(tf::vector3 vector);
         void setFrameName(std_msgs::String name);
         void setParentFrameName(std_msgs::String name);
-        void setPositionPoint(geometry_msg::vector3 vector);
-        geometry_msg::vector3 getPositionPointFromParentFrame(void);
+        void setPositionPoint(tf::vector3 vector);
+        tf::vector3 getPositionPointFromParentFrame(void);
         std_msgs::String getParentFrameName(void);
         std_msgs::String getFrameName(void);
         void setFrameTransform(tf::Transform transform);
