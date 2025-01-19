@@ -1,0 +1,3 @@
+<launch>
+    <node name="publisher" pkg="cdf_2025" type="cdf_2025_node" output="screen" />
+</launch>

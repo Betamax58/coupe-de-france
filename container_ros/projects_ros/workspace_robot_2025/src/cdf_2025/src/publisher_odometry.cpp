@@ -5,5 +5,5 @@
 
 int main(int argc, char **argv)
 {
-    
+    publisherOdometry(argc, argv);
 }

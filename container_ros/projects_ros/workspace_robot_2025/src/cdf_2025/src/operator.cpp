@@ -14,18 +14,19 @@ void FrameOperator::setParentFrameName(std_msgs::String name)
 }
 
 
-void FrameOperator::setPositionPoint(tf::vector3 vector)
+void FrameOperator::setPositionPoint(tf::Vector3 vector)
 {
-    this->x_position_point = vector.x;
-    this->y_position_point = vector.y;
-    this->z_position_point = vector.z;
+    this->x_position_point = vector.x();
+    this->y_position_point = vector.y();
+    this->z_position_point = vector.z();
 }
 
 
-tf::vector3 FrameOperator::getPositionPointFromParentFrame(void)
+geometry_msgs::PointStamped FrameOperator::getPositionPointFromParentFrame(void)
 {
+    geometry_msgs::PointStamped point_parent_frame;
     geometry_msgs::PointStamped point_child_frame;
-    point_child_frame.header.frame_id = this->parentFrameName;
+    point_child_frame.header.frame_id = this->parentFrameName.data;
 
     point_child_frame.header.stamp = ros::Time();
 
@@ -35,8 +36,8 @@ tf::vector3 FrameOperator::getPositionPointFromParentFrame(void)
 
     try
     {
-        geometry_msgs::PointStamped point_parent_frame;
-        this->listener.transformPoint(this->parentFrameName, point_child_frame, point_parent_frame);
+        
+        this->listener->transformPoint(this->parentFrameName.data, point_child_frame, point_parent_frame);
 
         ROS_INFO("point_child_frame: (%.2f, %.2f. %.2f) -----> point_parent_frame: (%.2f, %.2f, %.2f) at time %.2f",
                 point_child_frame.point.x, 
@@ -51,6 +52,8 @@ tf::vector3 FrameOperator::getPositionPointFromParentFrame(void)
     {
         ROS_ERROR("Received an exception trying to transform a point from \"point_child_frame\" to \"point_parent_frame\": %s", ex.what());
     }
+
+    return point_parent_frame;
 }
 
 
@@ -72,7 +75,7 @@ void FrameOperator::setFrameTransform(tf::Transform transform)
 }
 
 
-void FrameOperator::getFrameTransform(void)
+tf::Transform FrameOperator::getFrameTransform(void)
 {
     return this->frameTransform;
 }
@@ -81,7 +84,8 @@ void FrameOperator::getFrameTransform(void)
 
 nav_msgs::Odometry MotionOperator::getWheelsOdometry(void)
 {
-
+    nav_msgs::Odometry null;
+    return null;
 }
 
 
@@ -97,15 +101,15 @@ void MotionOperator::updateWheelsOdometry(void)
 }
 
 
-tf::StampTransform TransformOperator::getFrameTransformation(void)
+tf::StampedTransform TransformOperator::getFrameTransformation(void)
 {
-    tf::StampTransform transform;
+    tf::StampedTransform transform;
     
     try
     {
         // determination d'un objet tf::StampTransform entre child frame et parent frame
-        this->listener.lookupTransform(this->parentFrame.getFrameName(), 
-                                        this->childFrame.getFrameName(), 
+        this->listener->lookupTransform(this->parentFrame.getFrameName().data, 
+                                        this->childFrame.getFrameName().data, 
                                         ros::Time(0), transform);
      
     }
@@ -149,13 +153,18 @@ tf::Transform TransformOperator::updateChildFrame(void)
                         this->odometryTransform.pose.pose.position.z ));
     
     // rotation autour de X, Y, Z avec le quaternion entre les 2 repères.
-    transform.setRotation(this->odometryTransform.pose.pose.orientation);
+    tf::Quaternion tf_quat;
+    tf::quaternionMsgToTF(this->odometryTransform.pose.pose.orientation, tf_quat);
+    transform.setRotation(tf_quat);
     
     // remise à zéro de l'odométrie
     this->odometryTransform.pose.pose.position.x = 0;
     this->odometryTransform.pose.pose.position.y = 0;
     this->odometryTransform.pose.pose.position.z = 0;
-    this->odometryTransform.pose.pose.orientation = tf::Quaternion(0,0,0,1);
+    tf_quat.setX(0.0);tf_quat.setY(0.0);tf_quat.setZ(0.0);tf_quat.setW(1.0);
+    geometry_msgs::Quaternion geom_quat;
+    tf::quaternionTFToMsg(tf_quat, geom_quat);
+    this->odometryTransform.pose.pose.orientation = geom_quat;
 
     return transform;
 }
@@ -169,6 +178,6 @@ void TransformOperator::broadcastTransform(void)
     this->childFrame.setFrameTransform(TransformOperator::updateChildFrame()); 
     this->broadcaster.sendTransform(tf::StampedTransform(this->childFrame.getFrameTransform(), 
                                                         ros::Time::now(), 
-                                                        this->parentFrame.getFrameName(), 
-                                                        this->childFrame.getFrameName()));
+                                                        this->parentFrame.getFrameName().data, 
+                                                        this->childFrame.getFrameName().data));
 }

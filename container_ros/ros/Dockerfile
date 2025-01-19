@@ -1,5 +1,5 @@
-# FROM osrf/ros:noetic-desktop-full
-FROM ros:noetic
+FROM osrf/ros:noetic-desktop-full
+# FROM ros:noetic
 ARG DEBIAN_FRONTEND=noninteractive
 # commande initial message de préparation
 # ENTRYPOINT ["echo","container_is_ready"]

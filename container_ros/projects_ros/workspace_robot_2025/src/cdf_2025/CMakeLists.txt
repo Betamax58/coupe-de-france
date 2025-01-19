@@ -78,6 +78,7 @@ find_package(catkin REQUIRED COMPONENTS
   trajectory_msgs
   visualization_msgs
   xmlrpcpp
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -169,11 +170,19 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
+# catkin_package(
 #  INCLUDE_DIRS include
+#  ${system_lib_INCLUDE_DIRS}
+#  ${system_lib_LIBRARIES}
 #  LIBRARIES cdf_2025
 #  CATKIN_DEPENDS actionlib actionlib_msgs bond bondcpp bondpy class_loader cmake_modules cpp_common diagnostic_msgs dynamic_reconfigure gencpp geneus genlisp genmsg gennodejs genpy geometry_msgs message_filters message_generation message_runtime mk nav_msgs nodelet nodelet_topic_tools pluginlib ros_environment rosbag rosbag_migration_rule rosbag_storage rosbash rosboost_cfg rosbuild rosclean rosconsole rosconsole_bridge roscpp roscpp_serialization roscpp_traits roscreate rosgraph rosgraph_msgs roslang roslaunch roslib roslisp roslz4 rosmake rosmaster rosmsg rosnode rosout rospack rosparam rospy rosservice rostest rostime rostopic rosunit roswtf sensor_msgs shape_msgs smclib std_msgs std_srvs stereo_msgs topic_tools trajectory_msgs visualization_msgs xmlrpcpp
 #  DEPENDS system_lib
+# )
+catkin_package(
+ INCLUDE_DIRS include
+ LIBRARIES cdf_2025
+ CATKIN_DEPENDS actionlib actionlib_msgs bond bondcpp bondpy class_loader cmake_modules cpp_common diagnostic_msgs dynamic_reconfigure gencpp geneus genlisp genmsg gennodejs genpy geometry_msgs message_filters message_generation message_runtime mk nav_msgs nodelet nodelet_topic_tools pluginlib ros_environment rosbag rosbag_migration_rule rosbag_storage rosbash rosboost_cfg rosbuild rosclean rosconsole rosconsole_bridge roscpp roscpp_serialization roscpp_traits roscreate rosgraph rosgraph_msgs roslang roslaunch roslib roslisp roslz4 rosmake rosmaster rosmsg rosnode rosout rospack rosparam rospy rosservice rostest rostime rostopic rosunit roswtf sensor_msgs shape_msgs smclib std_msgs std_srvs stereo_msgs topic_tools trajectory_msgs visualization_msgs xmlrpcpp tf
+
 )
 
 ###########
@@ -182,8 +191,13 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
+# include_directories(
 # include
+#   ${catkin_INCLUDE_DIRS}
+#   ${system_lib_INCLUDE_DIRS}
+# )
+include_directories(
+include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -200,7 +214,12 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/cdf_2025_node.cpp)
+add_executable(${PROJECT_NAME}_node 
+              src/publisher_odometry.cpp
+              src/process.cpp
+              src/operator.cpp
+              src/node.cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -213,9 +232,9 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##

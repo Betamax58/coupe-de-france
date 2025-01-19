@@ -67,6 +67,8 @@ void tf_process::init(void)
 
 void tf_process::initializeFrame(tf::vector3 positionXYZ, tf::vector3 orientationRPY)
 {
+    TransformOperator transformOperator;
+
     transformOperator.setChildFrame(this->frameOperatorAruco_base_A);
     transformOperator.setParentFrame(this->frameOperatorMap);
     this->frameOdometry = createOdometry(tf::vector3(1, 1, 0), tf::vector3(0, 0, 0));
@@ -159,6 +161,8 @@ void tf_process::initializeFrame(tf::vector3 positionXYZ, tf::vector3 orientatio
 
 void tf_process::transformFrame(nav_msgs::Odometry frameOdometry)
 {
+    TransformOperator transformOperator;
+
     transformOperator.setChildFrame(this->frameOperatorAruco_base_A);
     transformOperator.setParentFrame(this->frameOperatorMap);
     this->frameOdometry = createOdometry(tf::vector3(1, 1, 0), tf::vector3(0, 0, 0));

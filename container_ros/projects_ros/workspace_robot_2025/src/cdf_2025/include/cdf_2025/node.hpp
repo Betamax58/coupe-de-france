@@ -23,7 +23,5 @@ void subscriberOdometry(int argc, char** argv);
 void subscriberTF(int argc, char** argv);
 void subscriberMotionControl(int argc, char** argv);
 void subscriberSensor(int argc, char** argv);
-void chatterCallback(const std_msgs::String::ConstPtr& msg);
-
 
 #endif // NOM_FICHIER_H

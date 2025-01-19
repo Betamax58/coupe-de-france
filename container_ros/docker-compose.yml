@@ -1,6 +1,6 @@
 # version: '3'
 services:
-  service_ros:
+  service_ros_full:
     container_name: ros
     restart: always
     command: ["roscore"]

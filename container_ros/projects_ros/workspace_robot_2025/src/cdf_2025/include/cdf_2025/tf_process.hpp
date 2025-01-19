@@ -33,8 +33,8 @@ class tf_process
     
     public:
         void init(void);
-        void initializeFrame(tf::Vector3 positionXYZ, tf::Vector3 orientationRPY);
-        nav_msgs::Odometry createOdometry(tf::Vector3 position, tf::Vector3 orientationRPY);
+        void initializeFrame(tf::vector3 positionXYZ, tf::vector3 orientationRPY);
+        nav_msgs::Odometry createOdometry(tf::vector3 position, tf::vector3 orientationRPY);
         
         
 

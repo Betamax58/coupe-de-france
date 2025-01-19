@@ -19,7 +19,7 @@ void publisherOdometry(int argc, char** argv)
     int count = 0;
 
   // Création du timer
-  TimerProcess timerProcess(&n, "odometry"); // Appelé toutes les 0.1 seconde
+  TimerProcess timerProcess(&n); // Appelé toutes les 0.1 seconde
 
   while (ros::ok())
   {
@@ -53,10 +53,10 @@ void publisherTF(int argc, char** argv)
 {
     ros::init(argc, argv, "publisherTF");
     ros::NodeHandle n;
-    ros::Publisher pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Publisher pub = n.advertise<std_msgs::String>("/chatterTF", 1000);
     ros::Rate loop_rate(10);
 
-    nav_msgs::Odometry frameOdometry
+    nav_msgs::Odometry frameOdometry;
 
     
 
@@ -65,11 +65,11 @@ void publisherTF(int argc, char** argv)
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    // std_msgs::String msg;
-    // std::stringstream ss;
-    // ss << "hello world "
-    // msg.data = ss.str();
-    // ROS_INFO("%s", msg.data.c_str());
+    std_msgs::String msg;
+    std::stringstream ss;
+    ss << "hello world ";
+    msg.data = ss.str();
+    ROS_INFO("%s", msg.data.c_str());
     
     
 
@@ -93,7 +93,7 @@ void publisherCameraData(int argc, char** argv)
 {
     ros::init(argc, argv, "publisherOdometry");
     ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("/chatterCam", 1000);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
@@ -104,7 +104,7 @@ void publisherCameraData(int argc, char** argv)
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "hello world "
+    ss << "hello world ";
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -128,7 +128,7 @@ void publisherTOFData(int argc, char** argv)
 {
     ros::init(argc, argv, "publisherOdometry");
     ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatterTOF", 1000);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
@@ -139,7 +139,7 @@ void publisherTOFData(int argc, char** argv)
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "hello world "
+    ss << "hello world ";
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -163,7 +163,7 @@ void publisherLidarData(int argc, char** argv)
 {
     ros::init(argc, argv, "publisherOdometry");
     ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatterLidar", 1000);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
@@ -174,7 +174,7 @@ void publisherLidarData(int argc, char** argv)
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "hello world "
+    ss << "hello world ";
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -198,7 +198,7 @@ void publisherVelocity(int argc, char** argv)
 {
     ros::init(argc, argv, "publisherOdometry");
     ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("/chatterVel", 1000);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
@@ -209,7 +209,7 @@ void publisherVelocity(int argc, char** argv)
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "hello world "
+    ss << "hello world ";
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -233,7 +233,7 @@ void publisherMotion(int argc, char** argv)
 {
     ros::init(argc, argv, "publisherOdometry");
     ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("/chatterMotion", 1000);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
@@ -244,7 +244,7 @@ void publisherMotion(int argc, char** argv)
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "hello world "
+    ss << "hello world ";
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -279,7 +279,7 @@ void publisherMonitoring(int argc, char** argv)
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "hello world "
+    ss << "hello world ";
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -303,7 +303,7 @@ void subscriberOdometry(int argc, char** argv)
 {
     ros::init(argc, argv, "subcriberOdometry");
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::Subscriber sub = n.subscribe("/odom", 1000, chatterCallback);
     ros::spin();
 }
 
@@ -311,7 +311,7 @@ void subscriberTF(int argc, char** argv)
 {
     ros::init(argc, argv, "subcriberOdometry");
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::Subscriber sub = n.subscribe("chatterTF", 1000, chatterCallback);
     ros::spin();
 }
 
@@ -319,7 +319,7 @@ void subscriberMotionControl(int argc, char** argv)
 {
     ros::init(argc, argv, "subcriberOdometry");
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::Subscriber sub = n.subscribe("chatterMotion", 1000, chatterCallback);
     ros::spin();
 }
 
@@ -327,6 +327,11 @@ void subscriberSensor(int argc, char** argv)
 {
     ros::init(argc, argv, "subcriberOdometry");
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("chatter", 1000);
+    ros::Subscriber sub = n.subscribe("chatterSensor", 1000, chatterCallback);
     ros::spin();
 }
+
+void chatterCallback(const std_msgs::String::ConstPtr& msg) {
+    ROS_INFO("I heard: [%s]", msg->data.c_str());
+}
+

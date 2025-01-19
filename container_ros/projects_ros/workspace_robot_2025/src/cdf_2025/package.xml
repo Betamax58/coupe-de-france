@@ -34,10 +34,10 @@
   <!-- Use depend as a shortcut for packages that are both build and exec dependencies -->
   <!--   <depend>roscpp</depend> -->
   <!--   Note that this is equivalent to the following: -->
-  <!--   <build_depend>roscpp</build_depend> -->
+  <!--   <depend>roscpp</depend> -->
   <!--   <exec_depend>roscpp</exec_depend> -->
   <!-- Use build_depend for packages you need at compile time: -->
-  <!--   <build_depend>message_generation</build_depend> -->
+  <!--   <depend>message_generation</depend> -->
   <!-- Use build_export_depend for packages you need in order to build against this package: -->
   <!--   <build_export_depend>message_generation</build_export_depend> -->
   <!-- Use buildtool_depend for build tool packages: -->
@@ -50,74 +50,76 @@
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <buildtool_depend>genmsg</buildtool_depend>
-  <build_depend>actionlib</build_depend>
-  <build_depend>actionlib_msgs</build_depend>
-  <build_depend>bond</build_depend>
-  <build_depend>bondcpp</build_depend>
-  <build_depend>bondpy</build_depend>
-  <build_depend>cmake_modules</build_depend>
-  <build_depend>cpp_common</build_depend>
-  <build_depend>diagnostic_msgs</build_depend>
-  <build_depend>dynamic_reconfigure</build_depend>
-  <build_depend>gencpp</build_depend>
-  <build_depend>geneus</build_depend>
-  <build_depend>genlisp</build_depend>
-  <build_depend>gennodejs</build_depend>
-  <build_depend>genpy</build_depend>
-  <build_depend>geometry_msgs</build_depend>
-  <build_depend>message_filters</build_depend>
-  <build_depend>message_generation</build_depend>
-  <build_depend>mk</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_depend>nodelet</build_depend>
-  <build_depend>nodelet_topic_tools</build_depend>
-  <build_depend>pluginlib</build_depend>
-  <build_depend>ros_environment</build_depend>
-  <build_depend>rosbag</build_depend>
-  <build_depend>rosbag_migration_rule</build_depend>
-  <build_depend>rosbag_storage</build_depend>
-  <build_depend>rosbash</build_depend>
-  <build_depend>rosboost_cfg</build_depend>
-  <build_depend>rosbuild</build_depend>
-  <build_depend>rosclean</build_depend>
-  <build_depend>rosconsole</build_depend>
-  <build_depend>rosconsole_bridge</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>roscpp_serialization</build_depend>
-  <build_depend>roscpp_traits</build_depend>
-  <build_depend>roscreate</build_depend>
-  <build_depend>rosgraph</build_depend>
-  <build_depend>rosgraph_msgs</build_depend>
-  <build_depend>roslang</build_depend>
-  <build_depend>roslaunch</build_depend>
-  <build_depend>roslib</build_depend>
-  <build_depend>roslisp</build_depend>
-  <build_depend>roslz4</build_depend>
-  <build_depend>rosmake</build_depend>
-  <build_depend>rosmaster</build_depend>
-  <build_depend>rosmsg</build_depend>
-  <build_depend>rosnode</build_depend>
-  <build_depend>rosout</build_depend>
-  <build_depend>rospack</build_depend>
-  <build_depend>rosparam</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>rosservice</build_depend>
-  <build_depend>rostest</build_depend>
-  <build_depend>rostime</build_depend>
-  <build_depend>rostopic</build_depend>
-  <build_depend>rosunit</build_depend>
-  <build_depend>roswtf</build_depend>
-  <build_depend>sensor_msgs</build_depend>
-  <build_depend>shape_msgs</build_depend>
-  <build_depend>smclib</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>std_srvs</build_depend>
-  <build_depend>stereo_msgs</build_depend>
-  <build_depend>topic_tools</build_depend>
-  <build_depend>trajectory_msgs</build_depend>
-  <build_depend>visualization_msgs</build_depend>
-  <build_depend>xmlrpcpp</build_depend>
-  <build_export_depend>actionlib</build_export_depend>
+  <depend>genmsg</depend>
+  <depend>actionlib</depend>
+  <depend>actionlib_msgs</depend>
+  <depend>bond</depend>
+  <depend>bondcpp</depend>
+  <depend>bondpy</depend>
+  <depend>cmake_modules</depend>
+  <depend>cpp_common</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>gencpp</depend>
+  <depend>geneus</depend>
+  <depend>genlisp</depend>
+  <depend>gennodejs</depend>
+  <depend>genpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>message_filters</depend>
+  <depend>message_generation</depend>
+  <depend>mk</depend>
+  <depend>nav_msgs</depend>
+  <depend>nodelet</depend>
+  <depend>nodelet_topic_tools</depend>
+  <depend>pluginlib</depend>
+  <depend>ros_environment</depend>
+  <depend>rosbag</depend>
+  <depend>rosbag_migration_rule</depend>
+  <depend>rosbag_storage</depend>
+  <depend>rosbash</depend>
+  <depend>rosboost_cfg</depend>
+  <depend>rosbuild</depend>
+  <depend>rosclean</depend>
+  <depend>rosconsole</depend>
+  <depend>rosconsole_bridge</depend>
+  <depend>roscpp</depend>
+  <depend>roscpp_serialization</depend>
+  <depend>roscpp_traits</depend>
+  <depend>roscreate</depend>
+  <depend>rosgraph</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>roslang</depend>
+  <depend>roslaunch</depend>
+  <depend>roslib</depend>
+  <depend>roslisp</depend>
+  <depend>roslz4</depend>
+  <depend>rosmake</depend>
+  <depend>rosmaster</depend>
+  <depend>rosmsg</depend>
+  <depend>rosnode</depend>
+  <depend>rosout</depend>
+  <depend>rospack</depend>
+  <depend>rosparam</depend>
+  <depend>rospy</depend>
+  <depend>rosservice</depend>
+  <depend>rostest</depend>
+  <depend>rostime</depend>
+  <depend>rostopic</depend>
+  <depend>rosunit</depend>
+  <depend>roswtf</depend>
+  <depend>sensor_msgs</depend>
+  <depend>shape_msgs</depend>
+  <depend>smclib</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>stereo_msgs</depend>
+  <depend>topic_tools</depend>
+  <depend>trajectory_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>xmlrpcpp</depend>
+  <depend>tf</depend>
+  <!-- <build_export_depend>actionlib</build_export_depend>
   <build_export_depend>actionlib_msgs</build_export_depend>
   <build_export_depend>bond</build_export_depend>
   <build_export_depend>bondcpp</build_export_depend>
@@ -182,7 +184,10 @@
   <build_export_depend>topic_tools</build_export_depend>
   <build_export_depend>trajectory_msgs</build_export_depend>
   <build_export_depend>visualization_msgs</build_export_depend>
-  <build_export_depend>xmlrpcpp</build_export_depend>
+  <build_export_depend>xmlrpcpp</build_export_depend> -->
+  <depend>class_loader</depend>
+  <!-- <exec_depend>message_generation</exec_depend>
+  <exec_depend>genmsg</exec_depend>
   <exec_depend>actionlib</exec_depend>
   <exec_depend>actionlib_msgs</exec_depend>
   <exec_depend>bond</exec_depend>
@@ -198,9 +203,10 @@
   <exec_depend>gennodejs</exec_depend>
   <exec_depend>genpy</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>message_filters</exec_depend>
+  <exec_depend>message_filters</exec_depend> -->
+  <build_depend>message_runtime</build_depend>
   <exec_depend>message_runtime</exec_depend>
-  <exec_depend>mk</exec_depend>
+  <!-- <exec_depend>mk</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>nodelet</exec_depend>
   <exec_depend>nodelet_topic_tools</exec_depend>
@@ -250,6 +256,7 @@
   <exec_depend>trajectory_msgs</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>xmlrpcpp</exec_depend>
+  <exec_depend>class_loader</exec_depend> -->
 
 
   <!-- The export tag contains other, unspecified, tags -->

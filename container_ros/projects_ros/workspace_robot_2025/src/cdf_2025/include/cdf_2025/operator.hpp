@@ -12,8 +12,6 @@
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/Vector3.h>
 
-#include <std_msgs/Bool.h>
-
 #include <std_msgs/String.h>
 
 #include <ros/time.h>
@@ -39,32 +37,18 @@ class FrameOperator
         std_msgs::String frameName;
         std_msgs::String parentFrameName;
         tf::Transform frameTransform;
-        tf::TransformListener* listener;
+        tf::TransformListener listener;
 
     public:
-        void setPositionPoint(tf::Vector3 vector);
+        void setPositionPoint(tf::vector3 vector);
         void setFrameName(std_msgs::String name);
         void setParentFrameName(std_msgs::String name);
-        geometry_msgs::PointStamped getPositionPointFromParentFrame(void);
+        void setPositionPoint(tf::vector3 vector);
+        tf::vector3 getPositionPointFromParentFrame(void);
         std_msgs::String getParentFrameName(void);
         std_msgs::String getFrameName(void);
         void setFrameTransform(tf::Transform transform);
-        tf::Transform getFrameTransform(void);
-
-        // Déclaration de l'opérateur d'assignation
-        FrameOperator& operator=(const FrameOperator& other) {
-        if (this != &other) { // Éviter l'auto-assignation
-            this->x_position_point = other.x_position_point; // Copier les données
-            this->y_position_point = other.y_position_point;
-            this->z_position_point = other.z_position_point;
-            this->frameName = other.frameName;
-            this->parentFrameName = other.parentFrameName;
-            this->frameTransform = other.frameTransform;
-            this->listener = other.listener;
-            
-        }
-        return *this;
-    }
+        void getFrameTransform(void);
 
 };
 
@@ -117,16 +101,16 @@ class TransformOperator
         FrameOperator parentFrame;
         nav_msgs::Odometry odometryTransform;
         tf::TransformBroadcaster broadcaster;
-        tf::TransformListener* listener;
+        tf::TransformListener listener;
         
 
     public:
-        tf::StampedTransform getFrameTransformation(void);
+        tf::Transform getFrameTransformation(void);
         void setChildFrame(FrameOperator childFrame);
         void setParentFrame(FrameOperator parentFrame);
         void setOdometryTransform(nav_msgs::Odometry odometryTransform);
         void broadcastTransform(void);
-        tf::Transform updateChildFrame(void);
+        void updateChildFrame(void);
 
 };
 

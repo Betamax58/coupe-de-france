@@ -3,7 +3,7 @@
 
 void odometryMessage(std_msgs::String childFrameName, std_msgs::String parentFrameName, geometry_msgs::Pose poseMsg, geometry_msgs::Twist twistMsg, nav_msgs::Odometry &odom_msg)
 {
-    if (odom_msg == nullptr) {
+    if (&odom_msg == nullptr) {
         ROS_ERROR("odom_msg pointer is null!");
         return;
     }
@@ -11,35 +11,35 @@ void odometryMessage(std_msgs::String childFrameName, std_msgs::String parentFra
         // nav_msgs::Odometry odom_msg;
 
         // Remplissage de l'en-tête
-        odom_msg->header.stamp = ros::Time::now();
-        odom_msg->header.frame_id = parentFrameName;  // Cadre de référence
-        odom_msg->child_frame_id = childFrameName;  // Cadre enfant
+        odom_msg.header.stamp = ros::Time::now();
+        odom_msg.header.frame_id = parentFrameName.data;  // Cadre de référence
+        odom_msg.child_frame_id = childFrameName.data;  // Cadre enfant
 
         // Remplissage de la pose (position et orientation)
-        odom_msg->pose.pose.position.x = poseMsg.position.x;
-        odom_msg->pose.pose.position.y = poseMsg.position.y;
-        odom_msg->pose.pose.position.z = poseMsg.position.z;
-        odom_msg->pose.pose.orientation.x =poseMsg.orientation.x;
-        odom_msg->pose.pose.orientation.y = poseMsg.orientation.y;
-        odom_msg->pose.pose.orientation.z = poseMsg.orientation.z;
-        odom_msg->pose.pose.orientation.w = poseMsg.orientation.w;
+        odom_msg.pose.pose.position.x = poseMsg.position.x;
+        odom_msg.pose.pose.position.y = poseMsg.position.y;
+        odom_msg.pose.pose.position.z = poseMsg.position.z;
+        odom_msg.pose.pose.orientation.x =poseMsg.orientation.x;
+        odom_msg.pose.pose.orientation.y = poseMsg.orientation.y;
+        odom_msg.pose.pose.orientation.z = poseMsg.orientation.z;
+        odom_msg.pose.pose.orientation.w = poseMsg.orientation.w;
 
         // Covariance de la pose (facultatif)
         for (int i = 0; i < 36; i++) {
-            odom_msg->pose.covariance[i] = 0.0;
+            odom_msg.pose.covariance[i] = 0.0;
         }
 
         // Remplissage de la vitesse (linéaire et angulaire)
-        odom_msg->twist.twist.linear.x = twistMsg.linear.x;
-        odom_msg->twist.twist.linear.y = twistMsg.linear.y;
-        odom_msg->twist.twist.linear.z = twistMsg.linear.z;
-        odom_msg->twist.twist.angular.x = twistMsg.angular.x;
-        odom_msg->twist.twist.angular.y = twistMsg.angular.y;
-        odom_msg->twist.twist.angular.z = twistMsg.angular.z;
+        odom_msg.twist.twist.linear.x = twistMsg.linear.x;
+        odom_msg.twist.twist.linear.y = twistMsg.linear.y;
+        odom_msg.twist.twist.linear.z = twistMsg.linear.z;
+        odom_msg.twist.twist.angular.x = twistMsg.angular.x;
+        odom_msg.twist.twist.angular.y = twistMsg.angular.y;
+        odom_msg.twist.twist.angular.z = twistMsg.angular.z;
 
         // Covariance de la vitesse (facultatif)
         for (int i = 0; i < 36; i++) {
-            odom_msg->twist.covariance[i] = 0.0;
+            odom_msg.twist.covariance[i] = 0.0;
         }
 }
 
@@ -54,9 +54,9 @@ TimerProcess::TimerProcess(ros::NodeHandle *nh)
 }
 
 // Constructeur de la classe TimerOdometry.
-TimerOdometry::TimerOdometry(ros::NodeHandle *nh)
+TimerOdometry::TimerOdometry(ros::NodeHandle *nh):TimerProcess(nh)
 {
-    TimerProcess::TimerProcess(nh);
+    // TimerProcess:;
 }
 
 // fonction de lancement de callback avec timer de la classe TimerOdometry.        
@@ -76,9 +76,9 @@ void TimerOdometry::timerCallbackOdometry(const ros::TimerEvent &event)
 }
 
 // Constructeur de la classe TimerTF.
-TimerTF::TimerTF(ros::NodeHandle *nh)
+TimerTF::TimerTF(ros::NodeHandle *nh):TimerProcess(nh)
 {
-    TimerProcess::TimerProcess(nh);
+    // TimerProcess:;
 }
  
 // fonction de lancement de callback avec timer de la classe TimerTF.     
@@ -99,9 +99,9 @@ void TimerTF::timerCallbackTF(const ros::TimerEvent &event)
 }
 
 // Constructeur de la classe TimerCamera.
-TimerCamera::TimerCamera(ros::NodeHandle *nh)
+TimerCamera::TimerCamera(ros::NodeHandle *nh):TimerProcess(nh)
 {
-    TimerProcess::TimerProcess(nh)
+    // TimerProcess:
 }
 
 // fonction de lancement de callback avec timer de la classe TimerCamera.  
@@ -122,9 +122,9 @@ void TimerCamera::timerCallbackCamera(const ros::TimerEvent &event)
 }
    
 // Constructeur de la classe TimerTOF.
-TimerTOF::TimerTOF(ros::NodeHandle *nh)
+TimerTOF::TimerTOF(ros::NodeHandle *nh):TimerProcess(nh)
 {
-    TimerProcess::TimerProcess(nh)
+    // TimerProcess:
 }
         
 // fonction de lancement de callback avec timer de la classe TimerTOF.  
@@ -145,9 +145,9 @@ void TimerTOF::timerCallbackTOF(const ros::TimerEvent &event)
 }
 
 // Constructeur de la classe TimerLidar.
-TimerLidar::TimerLidar(ros::NodeHandle *nh)
+TimerLidar::TimerLidar(ros::NodeHandle *nh):TimerProcess(nh)
 {
-    TimerProcess::TimerProcess(nh)
+    // TimerProcess:
 }
         
 // fonction de lancement de callback avec timer de la classe TimerLidar.  
@@ -168,9 +168,9 @@ void TimerLidar::timerCallbackLidar(const ros::TimerEvent &event)
 }
 
 // Constructeur de la classe TimerMotion.
-TimerMotion::TimerMotion(ros::NodeHandle *nh)
+TimerMotion::TimerMotion(ros::NodeHandle *nh):TimerProcess(nh)
 {
-    TimerProcess::TimerProcess(nh)
+    // 
 }
         
 // fonction de lancement de callback avec timer de la classe TimerMotion.  
