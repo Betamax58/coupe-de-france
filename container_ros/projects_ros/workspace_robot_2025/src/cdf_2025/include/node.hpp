@@ -9,7 +9,7 @@
 
 #include <nav_msgs/Odometry.h>
 
-
+#include <sensor_msgs/LaserScan.h>
 
 void publisherOdometry(int argc, char** argv);
 void publisherTF(int argc, char** argv);
