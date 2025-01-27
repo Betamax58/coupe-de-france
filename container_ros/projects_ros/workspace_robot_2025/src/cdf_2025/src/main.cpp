@@ -1,42 +1,34 @@
-#include <ros/ros.h>
+#include "addons.hpp"
 
-#include <move_base_msgs/MoveBaseAction.h>
 
-#include <actionlib/client/simple_action_client.h>
+// typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+bool motionMode;
 
-typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+int main(int argc, char** argv) 
+{
+    ros::init(argc, argv, "multi_thread_example");
+    ros::NodeHandle nh;
 
-int main(int argc, char** argv) {
-    ros::init(argc, argv, "send_goal");
+    motionMode = false;
 
-    // Créer un client pour l'action move_base
-    MoveBaseClient ac("move_base", true);
+    // Créer les threads
+    std::thread move_base_thread(moveBaseThread);
+    std::thread gui_program_thread(guiProgramThread);
+    std::thread main_program_thread(mainProgramThread);
+    std::thread object_capture_program_thread(objectCaptureProgramThread);
+    std::thread monitoring_mode_program_thread(monitoringModeProgramThread);
+    std::thread subscriber_tof_thread(subscriberTOF, argc, argv);
+    std::thread subscriber_item_pose_thread(subscriberItemPose, argc, argv);
 
-    // Attendre que le serveur d'actions soit disponible
-    ROS_INFO("Waiting for the move_base action server to come up");
-    ac.waitForServer();
 
-    // Définir l'objectif de navigation
-    move_base_msgs::MoveBaseGoal goal;
-    goal.target_pose.header.frame_id = "map";
-    goal.target_pose.header.stamp = ros::Time::now();
-
-    // Définir la position et l'orientation de l'objectif
-    goal.target_pose.pose.position.x = 1.0;
-    goal.target_pose.pose.position.y = 1.0;
-    goal.target_pose.pose.orientation.w = 1.0;
-
-    // Envoyer l'objectif au serveur d'actions
-    ROS_INFO("Sending goal");
-    ac.sendGoal(goal);
-
-    // Attendre que le robot atteigne l'objectif
-    ac.waitForResult();
-
-    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-        ROS_INFO("The robot reached the goal!");
-    else
-        ROS_INFO("The robot failed to reach the goal.");
+    // Attendre que les threads se terminent
+    move_base_thread.join();
+    gui_program_thread.join();
+    main_program_thread.join();
+    object_capture_program_thread.join();
+    monitoring_mode_program_thread.join();
+    subscriber_tof_thread.join();
+    subscriber_item_pose_thread.join();
 
     return 0;
 }

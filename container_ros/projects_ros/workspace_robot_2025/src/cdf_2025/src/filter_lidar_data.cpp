@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "laser_filter_node");
     ros::NodeHandle nh;
 
-    ros::Subscriber scan_sub = nh.subscribe<sensor_msgs::LaserScan>("/scan", 10, laserScanCallback);
+    ros::Subscriber scan_sub = nh.subscribe<sensor_msgs::LaserScan>("/lidar", 10, laserScanCallback); // /scan
     filtered_scan_pub = nh.advertise<sensor_msgs::LaserScan>("/filtered_scan", 10);
 
     ros::spin();

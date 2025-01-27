@@ -81,6 +81,12 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 )
 
+# Ajout de la bibliothèque des threads
+find_package(Threads REQUIRED)
+
+# Ajout de la bibliothèque nlohmann/json
+find_package(nlohmann_json REQUIRED)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -127,6 +133,11 @@ find_package(catkin REQUIRED COMPONENTS
 #   Service1.srv
 #   Service2.srv
 # )
+add_service_files(
+  FILES
+  MotionService.srv
+  
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -140,6 +151,10 @@ find_package(catkin REQUIRED COMPONENTS
 #   DEPENDENCIES
 #   actionlib_msgs#   diagnostic_msgs#   geometry_msgs#   nav_msgs#   rosgraph_msgs#   sensor_msgs#   shape_msgs#   std_msgs#   stereo_msgs#   trajectory_msgs#   visualization_msgs
 # )
+generate_messages(
+  DEPENDENCIES
+  std_msgs#   diagnostic_msgs#   geometry_msgs#   nav_msgs#   rosgraph_msgs#   sensor_msgs#   shape_msgs#   actionlib_msgs#   stereo_msgs#   trajectory_msgs#   visualization_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -196,9 +211,15 @@ catkin_package(
 #   ${catkin_INCLUDE_DIRS}
 #   ${system_lib_INCLUDE_DIRS}
 # )
+# include_directories(
+# include
+#   ${catkin_INCLUDE_DIRS}
+# )
 include_directories(
 include
   ${catkin_INCLUDE_DIRS}
+  ${nlohmann_json_INCLUDE_DIRS}
+  # ${CMAKE_SOURCE_DIR}/include  # Ajouter le répertoire include
 )
 
 ## Declare a C++ library
@@ -211,6 +232,7 @@ include
 ## either from message generation or dynamic reconfigure
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
@@ -219,6 +241,15 @@ add_executable(${PROJECT_NAME}_node
               src/process.cpp
               src/operator.cpp
               src/node.cpp)
+
+add_executable(${PROJECT_NAME}_main 
+              src/main.cpp
+              src/addons.cpp)
+
+add_dependencies(${PROJECT_NAME}_main ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(${PROJECT_NAME}_filtered_data_lidar 
+              src/filter_lidar_data.cpp)
 
 
 ## Rename C++ executable without prefix
@@ -233,6 +264,16 @@ add_executable(${PROJECT_NAME}_node
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(${PROJECT_NAME}_main
+   ${catkin_LIBRARIES} 
+   ${CMAKE_THREAD_LIBS_INIT}
+   nlohmann_json::nlohmann_json
+)
+
+target_link_libraries(${PROJECT_NAME}_filtered_data_lidar 
   ${catkin_LIBRARIES}
 )
 
@@ -290,3 +331,6 @@ target_link_libraries(${PROJECT_NAME}_node
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)

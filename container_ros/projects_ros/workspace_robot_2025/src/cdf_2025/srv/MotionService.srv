@@ -1,0 +1,11 @@
+int64 axisXdistance
+int64 axisYdistance
+int64 axisZrotation
+---
+int64 axisXdistanceDone
+int64 axisYdistanceDone
+int64 axisZrotationDone
+bool stuckForward
+bool stuckBackward
+bool stuckRight
+bool stuckLeft

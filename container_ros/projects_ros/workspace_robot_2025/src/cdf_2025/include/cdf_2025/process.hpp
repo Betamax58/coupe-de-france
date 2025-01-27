@@ -13,8 +13,7 @@
 #include <ros/time.h>
 #include <ros/ros.h>
 
-
-void odometryMessage(geometry_msgs::Pose pose, geometry_msgs::Twist twist, nav_msgs::Odometry *odom_msg);
+void odometryMessage(std_msgs::String childFrameName, std_msgs::String parentFrameName, geometry_msgs::Pose pose, geometry_msgs::Twist twist, nav_msgs::Odometry &odom_msg);
 
 
 /**
@@ -67,7 +66,7 @@ class TimerOdometry : public TimerProcess
         void Run();
         
 
-}
+};
 
 class TimerTF: public TimerProcess
 {
@@ -94,7 +93,7 @@ class TimerTF: public TimerProcess
         void Run();
         
 
-}
+};
 
 class TimerCamera : public TimerProcess
 {
@@ -121,7 +120,7 @@ class TimerCamera : public TimerProcess
         void Run();
         
 
-}
+};
 
 class TimerTOF : public TimerProcess
 {
@@ -148,7 +147,7 @@ class TimerTOF : public TimerProcess
         void Run();
         
 
-}
+};
 
 class TimerLidar : public TimerProcess
 {
@@ -175,7 +174,7 @@ class TimerLidar : public TimerProcess
         void Run();
         
 
-}
+};
 
 class TimerMotion : public TimerProcess
 {
@@ -202,7 +201,7 @@ class TimerMotion : public TimerProcess
         void Run();
         
 
-}
+};
 
 
 #endif // NOM_FICHIER_H

@@ -19,3 +19,11 @@ tof: {sensor_frame: tof_frame, data_type: PointCloud2, topic: /tof_points, marki
 #   topic: /filtered_scan
 #   marking: true
 #   clearing: true
+
+# plugins:
+#     - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
+
+# obstacle_layer:
+#   observation_sources: tof_sensor
+#   tof_sensor: {sensor_frame: tof_frame, data_type: PointCloud2, topic: /tof_points, marking: true, clearing: true}
+

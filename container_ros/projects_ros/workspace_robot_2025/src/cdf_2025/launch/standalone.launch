@@ -1,10 +1,24 @@
 <launch>
 
     <master auto="start"/>
- <!-- Run the map server --> 
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find cdf_2025)/map/map.pgm my_map_resolution"/>
 
- <!--- Run AMCL --> 
+    <!-- rplidar node activation -->
+    <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode">
+    <param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+    <param name="serial_baudrate"     type="int"    value="115200"/>
+    <param name="frame_id"            type="string" value="laser"/>
+    <param name="inverted"            type="bool"   value="false"/>
+    <param name="angle_compensate"    type="bool"   value="true"/>
+    
+    <!-- Remapping du topic -->
+    <remap from="/scan" to="/lidar" />
+    </node>
+
+    <!-- Run the map server --> 
+    <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find cdf_2025)/map/map.png my_map_resolution"/> -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find cdf_2025)/yaml/map.yaml"/>
+
+    <!--- Run AMCL --> 
     <include file="$(find amcl)/examples/amcl_omni.launch" />
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
