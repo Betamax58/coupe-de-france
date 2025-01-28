@@ -1,5 +1,6 @@
 #include "addons.hpp"
-#include "node.hpp"
+
+
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 std::mutex motion_mutex;
@@ -18,12 +19,21 @@ std::queue<std::string> message_queue_subpub_TOF;
 std::condition_variable queue_cond_var_subpub_TOF;
 
 std::mutex print_mutex;
+std::mutex data_mutex;
 std::mutex uart_mutex_motor;
 std::mutex uart_mutex_gripper;
 std::mutex uart_mutex_sensor;
 
-// bool motionMode;
+tf_process tfProcess;
+
+bool motionMode;
+bool statusMotion, statusMoveBaseEnd, statusGuiReady;
+
+
 geometry_msgs::Twist cmdVelocity;
+tf::Vector3 targetPosition;
+
+
 
 // Fonction de rappel pour les feedbacks
 void feedbackCb(const move_base_msgs::MoveBaseFeedback::ConstPtr& feedback) {
@@ -35,40 +45,77 @@ void feedbackCb(const move_base_msgs::MoveBaseFeedback::ConstPtr& feedback) {
 
 // Fonction pour gérer move_base
 void moveBaseThread() {
+    bool boolStatusMotion;
     MoveBaseClient ac("move_base", true);
 
-    std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
-    ROS_INFO("Waiting for the move_base action server to come up");
-    guard.unlock();
-    ac.waitForServer();
-
-    move_base_msgs::MoveBaseGoal goal;
-    goal.target_pose.header.frame_id = "map";
-    goal.target_pose.header.stamp = ros::Time::now();
-    goal.target_pose.pose.position.x = 1.0;
-    goal.target_pose.pose.position.y = 1.0;
-    goal.target_pose.pose.orientation.w = 1.0;
-
-    guard.lock();
-    ROS_INFO("Sending goal");
-    guard.unlock();
-    
-    ac.sendGoal(goal, MoveBaseClient::SimpleDoneCallback(), MoveBaseClient::SimpleActiveCallback(), &feedbackCb);
-
-    ac.waitForResult();
-
-    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    std::unique_lock<std::mutex> dataMutex(data_mutex, std::defer_lock);
+    boolStatusMotion = statusMotion;
+    dataMutex.unlock();
+    while(boolStatusMotion==true)
     {
         std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
-        ROS_INFO("The robot reached the goal!");
+        ROS_INFO("Waiting for the move_base action server to come up");
         guard.unlock();
-    }
-    else
-    {
+        ac.waitForServer();
+
+        tf::Vector3 position;
+        do 
+        {
+            dataMutex.lock();
+            position.setX(targetPosition.x());
+            position.setY(targetPosition.y());
+            position.setZ(targetPosition.z());
+            dataMutex.unlock();
+        }while ((position.x() < 0)&&(position.y() < 0));
+        
+
+        move_base_msgs::MoveBaseGoal goal;
+        goal.target_pose.header.frame_id = "map";
+        goal.target_pose.header.stamp = ros::Time::now();
+        
+        
+        goal.target_pose.pose.position.x = position.x();
+        goal.target_pose.pose.position.y = position.y();
+        goal.target_pose.pose.orientation.w = position.z();
+        
+
         guard.lock();
-        ROS_INFO("The robot failed to reach the goal.");
+        ROS_INFO("Sending goal");
         guard.unlock();
+        
+        ac.sendGoal(goal, MoveBaseClient::SimpleDoneCallback(), MoveBaseClient::SimpleActiveCallback(), &feedbackCb);
+
+        ac.waitForResult();
+
+        if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+        {
+            std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
+            ROS_INFO("The robot reached the goal!");
+            guard.unlock();
+            data_mutex.lock();
+            statusMoveBaseEnd = true;
+            statusMotion = false;
+            data_mutex.unlock();
+        }
+        else
+        {
+            guard.lock();
+            ROS_INFO("The robot failed to reach the goal.");
+            guard.unlock();
+            data_mutex.lock();
+            statusMoveBaseEnd = true;
+            statusMotion = false;
+            data_mutex.unlock();
+        }
     }
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    dataMutex.lock();
+    targetPosition.setX(-1);
+    targetPosition.setY(-1);
+    targetPosition.setZ(0);
+    dataMutex.unlock();
+
 }
 
 // Fonction pour changer le mode de déplacement
@@ -108,17 +155,38 @@ void objectCaptureProgramThread() {
 
 // Fonction pour le programme principale
 void mainProgramThread() {
+    
+    tfProcess.init();
+
     while (ros::ok()) {
-        std::unique_lock<std::mutex> lock(queue_mutex);
-        queue_cond_var.wait(lock, []{ return !message_queue.empty(); });
+        // std::unique_lock<std::mutex> lock(queue_mutex);
+        // queue_cond_var.wait(lock, []{ return !message_queue.empty(); });
 
-        std::string data = message_queue.front();
-        message_queue.pop();
-        lock.unlock();
+        // std::string data = message_queue.front();
+        // message_queue.pop();
+        // lock.unlock();
+        bool status, statusGUI;
+        std::unique_lock<std::mutex> dataMutex(data_mutex, std::defer_lock);
+        status = statusMoveBaseEnd;
+        statusGUI = statusGuiReady;
+        dataMutex.unlock();
 
-        std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
-        ROS_INFO("Received data from queue: %s", data.c_str());
-        guard.unlock();
+        if ((status)&&(statusGUI)) 
+        {
+            dataMutex.lock();
+            statusMotion = true;
+            statusMoveBaseEnd = false;
+            statusGUI=false;
+            dataMutex.unlock();
+            std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
+            ROS_INFO("Ready to launch move_base target");
+            guard.unlock();
+        }
+            
+        
+        
+
+        
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
@@ -126,16 +194,36 @@ void mainProgramThread() {
 // Fonction pour communiquer avec l'écran du robot
 void guiProgramThread() {
     while (ros::ok()) {
-        std::unique_lock<std::mutex> lock(queue_mutex);
-        queue_cond_var.wait(lock, []{ return !message_queue.empty(); });
+        // std::unique_lock<std::mutex> lock(queue_mutex);
+        // queue_cond_var.wait(lock, []{ return !message_queue.empty(); });
 
-        std::string data = message_queue.front();
-        message_queue.pop();
-        lock.unlock();
+        // std::string data = message_queue.front();
+        // message_queue.pop();
+        // lock.unlock();
 
-        std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
-        ROS_INFO("Received data from queue: %s", data.c_str());
-        guard.unlock();
+        // std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
+        // ROS_INFO("Received data from queue: %s", data.c_str());
+        // guard.unlock();
+        std::string cmdPosition;
+        bool statusGUI;
+        std::unique_lock<std::mutex> dataMutex(data_mutex, std::defer_lock);
+        statusGUI = statusGuiReady;
+        dataMutex.unlock();
+        if(!statusGUI)
+        {
+            float value;
+            cmdPosition = getUserInputAndConvertToJson();
+            dataMutex.lock();
+            value = stringToFloat(getDataFromJson(cmdPosition, "x"));
+            targetPosition.setX((int)value);
+            value = stringToFloat(getDataFromJson(cmdPosition, "y"));
+            targetPosition.setY((int)value);
+            value = stringToFloat(getDataFromJson(cmdPosition, "z"));
+            targetPosition.setZ((int)value);
+            statusGuiReady = true;
+            dataMutex.unlock();
+        }
+
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
@@ -229,14 +317,6 @@ void callbackTOF(const sensor_msgs::PointCloud::ConstPtr& msg) {
     lock.unlock();
 }
 
-void stabilizer()
-{
-    std::unique_lock<std::mutex> lock(queue_mutex);
-    queue_cond_var_subpub_TOF.wait(lock, []{ return !message_queue_subpub_TOF.empty(); });
-    std::string data = message_queue_subpub_TOF.front();
-    message_queue_subpub_TOF.pop();
-    lock.unlock();
-}
 
 void callbackItemPose(const geometry_msgs::Pose::ConstPtr& msg) {
     json j;
@@ -331,7 +411,7 @@ std::string getUserInputAndConvertToJson()
         json j;
         j["x"] = x;
         j["y"] = y;
-        j["theta"] = theta;
+        j["z"] = theta;
 
         // Convertir l'objet JSON en chaîne de caractères
         std::string json_str = j.dump();
@@ -446,7 +526,7 @@ void motionServerSubscriberCallback(const geometry_msgs::Twist::ConstPtr& msg)
     {
         cmdVelocity.angular.z = msg->angular.z;
     }
-    if(motionMode == true)
+    if((msg->linear.x > SPEED_FILTER_LIMIT_VALUE)&&(msg->linear.y > SPEED_FILTER_LIMIT_VALUE)&&(msg->angular.z > SPEED_FILTER_LIMIT_VALUE)&&(motionMode == true))
     {
         pose_list.push_back(createPose2D(cmdVelocity.linear.x, cmdVelocity.linear.y, cmdVelocity.angular.z));
         std::string poseJSON = pose2DListToJson( pose_list);
@@ -456,7 +536,7 @@ void motionServerSubscriberCallback(const geometry_msgs::Twist::ConstPtr& msg)
 }
 
 
-bool sendUART(const std::string& data, const std::string& device = "/dev/ttyAMA0", int baudrate = B9600) {
+bool sendUART(const std::string& data, const std::string& device, int baudrate) {
     int uart_filestream = open(device.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);
     if (uart_filestream == -1) {
         std::cerr << "Error - Unable to open UART. Ensure it is not in use by another application\n";
@@ -484,7 +564,7 @@ bool sendUART(const std::string& data, const std::string& device = "/dev/ttyAMA0
 }
 
 
-bool receiveUART(std::string& data, const std::string& device = "/dev/ttyAMA0", int baudrate = B9600) {
+bool receiveUART(std::string& data, const std::string& device, int baudrate) {
     int uart_filestream = open(device.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);
     if (uart_filestream == -1) {
         std::cerr << "Error - Unable to open UART. Ensure it is not in use by another application\n";
@@ -576,6 +656,16 @@ void tfUpdate(const nav_msgs::Odometry::ConstPtr& msg)
     transformStamped.transform.translation.y = 0.0;
     transformStamped.transform.translation.z = 0.5;
     br.sendTransform(transformStamped);
+}
+
+
+void stabilizer()
+{
+    std::unique_lock<std::mutex> lock(queue_mutex);
+    queue_cond_var_subpub_TOF.wait(lock, []{ return !message_queue_subpub_TOF.empty(); });
+    std::string data = message_queue_subpub_TOF.front();
+    message_queue_subpub_TOF.pop();
+    lock.unlock();
 }
 
 

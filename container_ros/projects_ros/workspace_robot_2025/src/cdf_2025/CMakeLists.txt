@@ -240,11 +240,15 @@ add_executable(${PROJECT_NAME}_node
               src/publisher_odometry.cpp
               src/process.cpp
               src/operator.cpp
-              src/node.cpp)
+              src/node.cpp
+              src/addons.cpp
+              src/tf_process.cpp)
 
 add_executable(${PROJECT_NAME}_main 
               src/main.cpp
-              src/addons.cpp)
+              src/addons.cpp
+              src/operator.cpp
+              src/tf_process.cpp)
 
 add_dependencies(${PROJECT_NAME}_main ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 

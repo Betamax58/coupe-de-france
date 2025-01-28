@@ -1,9 +1,10 @@
 // #include "../include/node.hpp"
 // #include "../include/process.hpp"
 // #include "../include/operator.hpp"
+
 #include "node.hpp"
-#include "process.hpp"
-#include "operator.hpp"
+
+// #include "tf_process.hpp"
 
 void publisherOdometry(int argc, char** argv)
 {
@@ -27,25 +28,32 @@ void publisherOdometry(int argc, char** argv)
      * This is a message object. You stuff it with data, and then publish it.
      */
     std_msgs::String msg;
+    std::string data, stringValue;
 
-    std::stringstream ss;
-    ss << "p_n_Odometry_ID_" << count;
-    msg.data = ss.str();
+    // std::stringstream ss;
+    // ss << "p_n_Odometry_ID_" << count;
+    // msg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    // ROS_INFO("%s", msg.data.c_str());
 
-    /**
-     * The publish() function is how you send messages. The parameter
-     * is the message object. The type of this object must agree with the type
-     * given as a template parameter to the advertise<>() call, as was done
-     * in the constructor above.
-     */
-    pub.publish(msg);
+    // /**
+    //  * The publish() function is how you send messages. The parameter
+    //  * is the message object. The type of this object must agree with the type
+    //  * given as a template parameter to the advertise<>() call, as was done
+    //  * in the constructor above.
+    //  */
+    // pub.publish(msg);
 
-    ros::spinOnce();
+    // ros::spinOnce();
 
-    loop_rate.sleep();
-    ++count;
+    // loop_rate.sleep();
+    // ++count;
+
+    if(receiveUART(data, "/dev/ttyAMA0", 9600))
+    {
+      stringValue = getDataFromJson(data, "D");
+    }
+    
   }
 }
 

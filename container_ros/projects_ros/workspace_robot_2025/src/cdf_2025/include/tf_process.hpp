@@ -5,7 +5,7 @@
 #include "operator.hpp"
 
 #include <tf/transform_broadcaster.h>
-
+#include <tf/tf.h>
 #include <geometry_msgs/Quaternion.h>
 #include <geometry_msgs/Point.h>
 // #include <geometry_msgs/Vector3.h>
@@ -34,8 +34,8 @@ class tf_process
     public:
         void init(void);
         void initializeFrame(tf::Vector3 positionXYZ, tf::Vector3 orientationRPY);
-        nav_msgs::Odometry createOdometry(tf::Vector3 position, tf::Vector3 orientationRPY);
-        
+        void transformFrame(nav_msgs::Odometry frameOdometry);
+        nav_msgs::Odometry createOdometry(tf::Vector3 positionXYZ, tf::Vector3 orientationRPY);
         
 
 };

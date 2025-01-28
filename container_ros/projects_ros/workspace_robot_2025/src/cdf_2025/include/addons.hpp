@@ -1,7 +1,14 @@
+#ifndef ADDONS_H
+#define ADDONS_H
+
+#include "node.hpp"
+#include "tf_process.hpp"
+
 #include <thread>
 #include <queue>
 #include <mutex>
 #include <vector>
+#include <string>
 #include <sstream>
 #include <fcntl.h>
 #include <unistd.h>
@@ -35,13 +42,18 @@ extern std::queue<std::string> message_queue_subpub_TOF;
 extern std::queue<std::string> message_queue;
 extern std::mutex queue_mutex;
 extern std::mutex motion_mutex;
+extern std::mutex data_mutex;
 extern std::mutex uart_mutex_motor;
 extern std::mutex uart_mutex_gripper;
 extern std::mutex uart_mutex_sensor;
 extern std::condition_variable queue_cond_var;
 extern bool motionMode;
 extern geometry_msgs::Twist cmdVelocity;
+extern tf::Vector3 targetPosition;
 
+extern bool statusMotion;
+extern bool statusMoveBaseEnd;
+extern bool statusGuiReady;
 
 void feedbackCb(const move_base_msgs::MoveBaseFeedback::ConstPtr& feedback);
 
@@ -97,4 +109,14 @@ void stabilizer();
 
 void tfUpdate(const nav_msgs::Odometry::ConstPtr& msg);
 
+bool sendUART(const std::string& data, const std::string& device, int baudrate);
 
+bool receiveUART(std::string& data, const std::string& device, int baudrate);
+
+
+
+
+
+
+
+#endif

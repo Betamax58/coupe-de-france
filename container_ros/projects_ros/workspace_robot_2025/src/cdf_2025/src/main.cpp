@@ -2,7 +2,7 @@
 
 
 // typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
-bool motionMode;
+// bool motionMode;
 
 int main(int argc, char** argv) 
 {

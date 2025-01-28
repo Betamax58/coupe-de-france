@@ -1,6 +1,10 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include "addons.hpp"
+#include "process.hpp"
+#include "operator.hpp"
+
 #include <sstream>
 
 #include <ros/ros.h>
