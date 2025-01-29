@@ -4,8 +4,10 @@
 #include "addons.hpp"
 #include "process.hpp"
 #include "operator.hpp"
+#include "tf_process.hpp"
 
 #include <sstream>
+#include <stdexcept>
 
 #include <ros/ros.h>
 
@@ -13,7 +15,14 @@
 
 #include <nav_msgs/Odometry.h>
 
+#include <tf/transform_datatypes.h>
+
+#include <geometry_msgs/Quaternion.h>
+
 #include <sensor_msgs/LaserScan.h>
+
+#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/point_cloud2_iterator.h>
 
 void publisherOdometry(int argc, char** argv);
 void publisherTF(int argc, char** argv);

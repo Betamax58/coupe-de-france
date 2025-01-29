@@ -91,7 +91,7 @@ void tf_process::init(void)
             nameStd_msgs.data = "base_link";
             this->frameOperatorTOF_frameE.setParentFrameName(nameStd_msgs);
             this->frameOperatorTOF_frameF.setPositionPoint(tf::Vector3(0,0,0));
-            nameStd_msgs.data = "base_link";
+            nameStd_msgs.data = "tof_frameF";
             this->frameOperatorTOF_frameF.setFrameName(nameStd_msgs);
             nameStd_msgs.data = "base_link";
             this->frameOperatorTOF_frameF.setParentFrameName(nameStd_msgs);
@@ -132,6 +132,12 @@ void tf_process::initializeFrame(tf::Vector3 positionXYZ, tf::Vector3 orientatio
     transformOperator.setChildFrame(this->frameOperatorAruco_base_D);
     transformOperator.setParentFrame(this->frameOperatorMap);
     this->frameOdometry = createOdometry(tf::Vector3(5, 5, 0), tf::Vector3(0, 0, 0));
+    transformOperator.setOdometryTransform(this->frameOdometry);
+    transformOperator.broadcastTransform();
+
+    transformOperator.setChildFrame(this->frameOperatorOdom);
+    transformOperator.setParentFrame(this->frameOperatorMap);
+    this->frameOdometry = createOdometry(positionXYZ, orientationRPY);
     transformOperator.setOdometryTransform(this->frameOdometry);
     transformOperator.broadcastTransform();
 

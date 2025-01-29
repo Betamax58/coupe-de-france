@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <stdexcept>
 #include <fcntl.h>
 #include <unistd.h>
 #include <ros/ros.h>
@@ -43,6 +44,7 @@ extern std::queue<std::string> message_queue;
 extern std::mutex queue_mutex;
 extern std::mutex motion_mutex;
 extern std::mutex data_mutex;
+extern std::mutex print_mutex;
 extern std::mutex uart_mutex_motor;
 extern std::mutex uart_mutex_gripper;
 extern std::mutex uart_mutex_sensor;
@@ -50,6 +52,8 @@ extern std::condition_variable queue_cond_var;
 extern bool motionMode;
 extern geometry_msgs::Twist cmdVelocity;
 extern tf::Vector3 targetPosition;
+
+extern tf_process tfProcess;
 
 extern bool statusMotion;
 extern bool statusMoveBaseEnd;

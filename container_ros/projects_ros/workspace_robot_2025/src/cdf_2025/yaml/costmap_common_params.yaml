@@ -11,7 +11,7 @@ observation_sources: laser_scan_sensor point_cloud_sensor
 # filtered data in order to use laser beam at the bottom of the robot 
 lidar: {sensor_frame: lidar_frame, data_type: LaserScan, topic: /filtered_scan, marking: true, clearing: true}
 
-tof: {sensor_frame: tof_frame, data_type: PointCloud2, topic: /tof_points, marking: true, clearing: true}
+tof: {sensor_frame: base_link, data_type: PointCloud2, topic: /tof_points, marking: true, clearing: true}
 
 # observation_sources: filtered_laser_scan
 # filtered_laser_scan: 

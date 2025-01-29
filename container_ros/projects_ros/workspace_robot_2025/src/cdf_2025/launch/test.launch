@@ -1,3 +1,10 @@
 <launch>
-    <node name="publisher" pkg="cdf_2025" type="cdf_2025_node" output="screen" />
+    <!-- <node name="publisher" pkg="cdf_2025" type="cdf_2025_node" output="screen" /> -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find cdf_2025)/yaml/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find cdf_2025)/yaml/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find cdf_2025)/yaml/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find cdf_2025)/yaml/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find cdf_2025)/yaml/base_local_planner_params.yaml" command="load" />
+    </node>
 </launch>

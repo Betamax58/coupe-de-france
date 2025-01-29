@@ -236,7 +236,15 @@ include
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node 
+add_executable(${PROJECT_NAME}_node_odometry 
+              src/publisher_odometry.cpp
+              src/process.cpp
+              src/operator.cpp
+              src/node.cpp
+              src/addons.cpp
+              src/tf_process.cpp)
+
+add_executable(${PROJECT_NAME}_node_tof 
               src/publisher_odometry.cpp
               src/process.cpp
               src/operator.cpp
@@ -267,7 +275,10 @@ add_executable(${PROJECT_NAME}_filtered_data_lidar
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
+target_link_libraries(${PROJECT_NAME}_node_odometry
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(${PROJECT_NAME}_node_tof
   ${catkin_LIBRARIES}
 )
 

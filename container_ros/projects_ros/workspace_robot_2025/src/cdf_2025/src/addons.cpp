@@ -157,6 +157,7 @@ void objectCaptureProgramThread() {
 void mainProgramThread() {
     
     tfProcess.init();
+    tfProcess.initializeFrame(tf::Vector3(0.05, 0.05, 0),tf::Vector3(0, 0, 0));
 
     while (ros::ok()) {
         // std::unique_lock<std::mutex> lock(queue_mutex);
@@ -230,17 +231,29 @@ void guiProgramThread() {
 
 std::string convertStringIntoJson(const std::vector<std::string>& keys, const std::vector<std::string>& values) 
 {
-    if (keys.size() != values.size()) {
-        throw std::invalid_argument("Keys and values must have the same length");
+    try
+    {
+        if (keys.size() != values.size()) {
+            throw std::invalid_argument("Keys and values must have the same length");
+        }
+
+        nlohmann::json jsonObject;
+
+        for (size_t i = 0; i < keys.size(); ++i) {
+            jsonObject[keys[i]] = values[i];
+        }
+
+        return jsonObject.dump();
+
+    }catch(const nlohmann::json::out_of_range& e)
+    {
+        std::cerr << "JSON out of range error: " << e.what() << std::endl;
+        std::unique_lock<std::mutex> guard(print_mutex, std::defer_lock);
+        ROS_INFO("JSON out of range error: %s", e.what());
+        guard.unlock();
     }
 
-    nlohmann::json jsonObject;
-
-    for (size_t i = 0; i < keys.size(); ++i) {
-        jsonObject[keys[i]] = values[i];
-    }
-
-    return jsonObject.dump();
+    
 }    
 
 std::string getDataFromJson(const std::string& jsonString, const std::string& key) 

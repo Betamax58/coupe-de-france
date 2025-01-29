@@ -25,13 +25,14 @@ class tf_process
         TransformOperator transformOperator;
         FrameOperator frameOperatorOdom, frameOperatorFootprint, frameOperatorBase_link,
                   frameOperatorCameraFrameA, frameOperatorCameraFrameB, frameOperatorCameraFrameC,
-                  frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC,
-                  frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF,
                   frameOperatorTOF_frameG,frameOperatorTOF_frameH, frameOperatorBase_laser,
                   frameOperatorAruco_base_A, frameOperatorAruco_base_B, frameOperatorAruco_base_C,
                   frameOperatorAruco_base_D, frameOperatorMap; 
     
     public:
+        FrameOperator frameOperatorTOF_frameA, frameOperatorTOF_frameB, frameOperatorTOF_frameC,
+        frameOperatorTOF_frameD, frameOperatorTOF_frameE, frameOperatorTOF_frameF;
+        
         void init(void);
         void initializeFrame(tf::Vector3 positionXYZ, tf::Vector3 orientationRPY);
         void transformFrame(nav_msgs::Odometry frameOdometry);
