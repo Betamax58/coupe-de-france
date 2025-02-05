@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /projects_ros/workspace_robot_2025/src/robot_tools/build/devel/setup.sh

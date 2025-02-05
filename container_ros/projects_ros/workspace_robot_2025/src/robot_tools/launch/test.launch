@@ -1,0 +1,3 @@
+<launch>
+  <test test-name="check_node" pkg="robot_tools" type="robot_tools-test" />
+</launch>
