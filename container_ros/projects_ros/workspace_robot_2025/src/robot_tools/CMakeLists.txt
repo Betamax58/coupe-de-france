@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(robot_tools)
 
+# Activer les tests
+enable_testing()
+
 set(CMAKE_TOOLCHAIN_FILE "/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
 
 ## Compile as C++11, supported in ROS Kinetic and newer
@@ -24,8 +27,8 @@ find_package(catkin REQUIRED COMPONENTS
   
 )
 
-set(gtest_DIR "/vcpkg/installed/x64-linux/share/gtest")
-find_package(GTest   REQUIRED)
+# set(gtest_DIR "/vcpkg/installed/x64-linux/share/gtest")
+find_package(GTest  REQUIRED)
 
 # Ajout de la bibliothèque nlohmann/json
 find_package(nlohmann_json REQUIRED)
@@ -136,6 +139,7 @@ include_directories(
 include
   ${catkin_INCLUDE_DIRS}
   ${nlohmann_json_INCLUDE_DIRS}
+  ${GTEST_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -219,20 +223,41 @@ install(TARGETS ${PROJECT_NAME}
 ## Testing ##
 #############
 
-enable_testing()
+
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(${PROJECT_NAME}-test test/test_robot_tools.cpp)
-if(TARGET ${PROJECT_NAME}-test)
-  target_link_libraries(${PROJECT_NAME}-test 
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_robot_tools.cpp)
+add_executable(${PROJECT_NAME}-test test/test_robot_tools.cpp)
+
+target_link_libraries(${PROJECT_NAME}-test 
   ${PROJECT_NAME}
-  # GTest::gtest GTest::gtest_main
-  GTest::gtest
-  GTest::gtest_main
+  
   ${catkin_LIBRARIES}
   ${nlohmann_json_LIBRARIES}
+  ${GTEST_LIBRARIES} pthread
   )
-endif()
+
+  add_executable(${PROJECT_NAME}_tf_br_test test/test_pub_tf.cpp)
+
+target_link_libraries(${PROJECT_NAME}_tf_br_test
+  ${PROJECT_NAME}
+  
+  ${catkin_LIBRARIES}
+  ${nlohmann_json_LIBRARIES}
+  ${GTEST_LIBRARIES} pthread
+  )
+
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test 
+#   ${PROJECT_NAME}
+#   # GTest::gtest GTest::gtest_main
+#   # GTest::gtest
+#   # GTest::gtest_main
+#   ${catkin_LIBRARIES}
+#   ${nlohmann_json_LIBRARIES}
+#   ${GTEST_LIBRARIES} pthread
+#   )
+# endif()
 
 add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
 

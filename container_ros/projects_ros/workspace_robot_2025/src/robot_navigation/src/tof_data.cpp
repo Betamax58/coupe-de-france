@@ -52,7 +52,8 @@ int main(int argc, char** argv)
         double securityDistance;
         try
         {
-            if(receiveUART(data, "/dev/ttyAMA1", 9600))
+            std::string port = "/dev/ttyAMA1";
+            if(receiveUART(data, port, 9600))
             {
                 stringValue = getDataFromJson(data, "tof1");
                 pointInParentFrame = getPositionPointFromParentFrame( "base_link", "tof_frameA", tf::Vector3( stringToFloat(stringValue), 0, 0));

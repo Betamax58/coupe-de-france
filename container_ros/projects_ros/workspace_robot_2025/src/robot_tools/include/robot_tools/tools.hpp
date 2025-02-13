@@ -53,7 +53,7 @@ bool sendUART(std::string& data, std::string& device, int baudrate);
 
 bool receiveUART(std::string& data, std::string& device, int baudrate);
 
-geometry_msgs::PointStamped getPositionPointFromParentFrame(const std::string& parentFrameName, const std::string& childFrameName, tf::Vector3 pointInChildFrame);
+geometry_msgs::PointStamped getPositionPointFromParentFrame(std::string parentFrameName, std::string childFrameName, tf::Vector3 pointInChildFrame);
 
 double computeDistance(double x2, double y2, double z2, double x1=0, double y1=0, double z1=0);
 

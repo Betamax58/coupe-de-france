@@ -38,7 +38,8 @@ int main(int argc, char** argv)
            
         try
         {
-            if(receiveUART(data, "/dev/ttyAMA1", 9600))
+            std::string port = "/dev/ttyAMA1";
+            if(receiveUART(data, port, 9600))
             {
                 duration = stringToFloat(getDataFromJson( data, "duration"));
                 odometry.header.stamp = current_time;

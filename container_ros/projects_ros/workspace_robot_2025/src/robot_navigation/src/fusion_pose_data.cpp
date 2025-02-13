@@ -42,7 +42,19 @@ int main(int argc, char** argv)
         
         if(processFusionPoseData(odometry, n))
         {
-            pub.publish(odometry); 
+            pub.publish(odometry);
+            n.setParam("/currentPosition_x", odometry.pose.pose.position.x);// coordonnée X courante
+            n.setParam("/currentPosition_y", odometry.pose.pose.position.y);// coordonnée Y courante
+            
+            // Conversion du quaternion en angles de lacet, tangage, roulis
+            tf::Quaternion tf_quat;
+            tf::quaternionMsgToTF(odometry.pose.pose.orientation, tf_quat);
+            double roll, pitch, yaw;
+            tf::Matrix3x3(tf_quat).getRPY(roll, pitch, yaw);
+            n.setParam("/currentOrientation", yaw);// orientation courante 
+        }
+        else {
+            ROS_INFO("position processing fusion data problem");
         }
         
         
@@ -182,6 +194,7 @@ bool processFusionPoseData(nav_msgs::Odometry& msg, ros::NodeHandle& nh)
         std::cerr << "Runtime error: " << e.what() << std::endl;
         
         ROS_INFO("fusion pose data module, Runtime error: %s", e.what());
+        return false; 
         
     }
     catch(const std::exception& e)
@@ -190,6 +203,7 @@ bool processFusionPoseData(nav_msgs::Odometry& msg, ros::NodeHandle& nh)
         std::cerr << "Exception: " << e.what() << std::endl;
         
         ROS_INFO("fusion pose data module, Exception error: %s", e.what());
+        return false; 
         
     }
 

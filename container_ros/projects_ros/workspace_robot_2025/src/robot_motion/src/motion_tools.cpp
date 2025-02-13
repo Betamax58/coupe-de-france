@@ -89,7 +89,9 @@ bool motionServerServiceCallback(MotionService::MotionService::Request &req,
         // envoi de donnée.
         nlohmann::json jsonObject;
         jsonObject["D"] = poseJSON;
-        sendUART( jsonObject.dump(), "/dev/ttyAMA0", 9600);
+        std::string value = jsonObject.dump();
+        std::string port = "/dev/ttyAMA0";
+        sendUART( value, port, 9600);
     }
     
     // ROS_INFO("Request: distance_X=%ld, distance_Y=%ld, orientation_Z=%ld", 
@@ -129,7 +131,9 @@ void motionServerSubscriberCallback(const geometry_msgs::Twist::ConstPtr& msg)
         // envoi de donnée.
         nlohmann::json jsonObject;
         jsonObject["V"] = poseJSON;
-        sendUART( jsonObject.dump(), "/dev/ttyAMA0", 9600);    
+        std::string value = jsonObject.dump();
+        std::string port = "/dev/ttyAMA0";
+        sendUART( value, port, 9600);    
     }
     
 }

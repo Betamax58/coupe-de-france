@@ -270,15 +270,18 @@ void stabilizer()
     
 }
 
-geometry_msgs::PointStamped getPositionPointFromParentFrame(const std::string& parentFrameName, const std::string& childFrameName, tf::Vector3 pointInChildFrame)
+geometry_msgs::PointStamped getPositionPointFromParentFrame(std::string parentFrameName, std::string childFrameName, tf::Vector3 pointInChildFrame)
 {
-     tf::TransformListener listener;
-    
+    tf::TransformListener listener;
+    // ros::Duration(1.0).sleep();
     geometry_msgs::PointStamped point_parent_frame;
     geometry_msgs::PointStamped point_child_frame;
     
-    point_child_frame.header.frame_id = childFrameName;
+    point_child_frame.header.frame_id = "odom"; // childFrameName;
     point_child_frame.header.stamp = ros::Time();
+
+    // point_parent_frame.header.frame_id = "map"; // childFrameName;
+    // point_parent_frame.header.stamp = ros::Time();
 
     point_child_frame.point.x = pointInChildFrame.x();
     point_child_frame.point.y = pointInChildFrame.y();
@@ -286,8 +289,12 @@ geometry_msgs::PointStamped getPositionPointFromParentFrame(const std::string& p
 
     try
     {
-       
-        listener.transformPoint(parentFrameName, point_child_frame, point_parent_frame);
+        tf::StampedTransform transform;
+        listener.lookupTransform("map", "odom", ros::Time(0), transform);
+        // listener.waitForTransform("map", "odom", ros::Time(0), ros::Duration(3.0));
+        // listener.waitForTransform(parentFrameName, childFrameName, ros::Time(0), ros::Duration(0.001));
+        // listener.transformPoint(parentFrameName, point_child_frame, point_parent_frame);
+        listener.transformPoint("map", point_child_frame, point_parent_frame);
 
         ROS_INFO("point_child_frame: (%.2f, %.2f. %.2f) -----> point_parent_frame: (%.2f, %.2f, %.2f) at time %.2f",
                 point_child_frame.point.x, 
@@ -297,6 +304,7 @@ geometry_msgs::PointStamped getPositionPointFromParentFrame(const std::string& p
                 point_parent_frame.point.y, 
                 point_parent_frame.point.z, 
                 point_parent_frame.header.stamp.toSec());
+                // point_parent_frame.header.frame_id = parentFrameName;
     }
     catch(tf::TransformException& ex)
     {
